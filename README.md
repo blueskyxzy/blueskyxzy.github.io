@@ -1,1 +1,1 @@
-# 个人博客 buleskyxzy,github.io 
+# 个人博客(https://blueskyxzy.github.io/) buleskyxzy,github.io 

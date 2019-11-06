@@ -1,28 +1,23 @@
 # Basic
-title: 潘柏信
+title: blueskyxzy
 subtitle: 个人站
 description: 欢迎来到我的个人站~
 # 头像里面的标题
-avatarTitle: leopardpan
+avatarTitle: blueskyxzy
 # 头像里面的描述
-avatarDesc: iOS / 机器学习
+avatarDesc: 后端 / 机器学习
 url: "http://baixin.io"
 
 # Comment
 comment:
-    disqus: leopard
+    disqus: blueskyxzy
     # gitment: xxx // 需要修改 comments.html中的client_id和client_secret
     # uyan: 2143225  # 有言id,登录有言官网申请
 
 # Social
 social:
-    weibo: 5366874726 
-    github: leopardpan
-    # zhihu: panpanleopard
-    # juejin: xxx
-    jianshu: 2ada30d8d0f7
-    # twitter: 
-    mail: leopardpan@icloud.com
+    github: blueskyxzy
+    mail: 18656432607@163.com
 
 
 # 百度统计 
@@ -35,16 +30,6 @@ baidu:
 ga:
     id: xxxx  
     host: auto  
-
-
-# 《----------------- 上面的信息修改成你自己的 ---------------------------》
-#
-#
-#  _post/ 下的文章更换成你自己的文章
-#  帮忙star一下，感谢~😆 地址： https://github.com/leopardpan/leopardpan.github.io
-#
-#
-# 《--------------- 下面的信息可以自行选择是否修改 ------------------------》
 
 
 permalink: /:year/:month/:title/

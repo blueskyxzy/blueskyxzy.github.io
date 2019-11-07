@@ -27,8 +27,11 @@ tags: 工具
          
 换行符 : 一行结束时输入两个空格               
       
-画平行线：     
---------    
+画平行线： 三个或者三个以上的 - 或者 * 都可以。    
+---  
+----  
+***  
+*****    
 
 字体加粗：  
     **bold**  
@@ -53,13 +56,13 @@ tags: 工具
 ##### This is an <h5> tag 
 ###### This is an <h6> tag 
 
-无序列表Unordered Lists：
+无序列表Unordered Lists：无序列表用 - + * 任何一种都可以  
 * Item 1
 * Item 2
   * Item 2a
   * Item 2b 
   
-有序列表Ordered Lists：
+有序列表Ordered Lists:数字加点   列表嵌套:上一级和下一级之间敲三个空格即可  
 1. Item 1
 1. Item 2
 1. Item 3
@@ -80,10 +83,9 @@ Format: ![Alt Text](url)
     >>> 这是引用的内容
 
 
-内联代码Inline code:
+内联代码Inline code:  代码之间分别用一个反引号包起来  
 内嵌代码`alert('Hello World');`
-I think you should use an
-`<addr>` element here instead.
+I think you should use an `<addr>` element here instead.
 css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法
 
 Syntax highlighting
@@ -104,10 +106,9 @@ You can also simply indent your code by four spaces:
       }
     }  
 Here’s an example of Python code without syntax highlighting:
-
-    def foo():
-        if not bar:
-            return True
+def foo():
+   if not bar:
+      return True
         
 任务清单Task Lists:  
 - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported

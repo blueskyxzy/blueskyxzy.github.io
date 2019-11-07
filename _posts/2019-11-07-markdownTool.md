@@ -30,14 +30,27 @@ tags: 工具
 画平行线：     
 --------    
 
-字体加粗：**bold**  
-字体倾斜：*italic*  
-链接Links：[link to Google!](http://google.com)  
-删除线Strikethrough:~~this~~  
+字体加粗：  
+    **bold**  
+    
+字体倾斜： 
+    *italic*  
+    
+字体倾斜和加粗：  
+    ***bold&italic***  
+    
+链接Links： 
+    [link to Google!](http://google.com)  
+    
+删除线Strikethrough:
+    ~~this~~  
 
 文字大小：
 # This is an <h1> tag
 ## This is an <h2> tag
+### This is an <h3> tag 
+#### This is an <h4> tag 
+##### This is an <h5> tag 
 ###### This is an <h6> tag 
 
 无序列表Unordered Lists：
@@ -59,7 +72,13 @@ Format: ![Alt Text](url)
 
 引用块Blockquotes:
 > We're living the future so
-> the present is our past.
+> the present is our past.  
+
+引用也可以嵌套：
+    > 这是引用的内容
+    >> 这是引用的内容
+    >>> 这是引用的内容
+
 
 内联代码Inline code:
 内嵌代码`alert('Hello World');`

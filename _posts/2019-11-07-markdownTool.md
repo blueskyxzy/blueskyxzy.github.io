@@ -7,16 +7,15 @@ tags: 总结
 
 
 ### 什么是 Markdown  
+ 
+   Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：如您正在阅读的这篇文章。它使用简单的符号标记不同的标题，分割不同的段落，**粗体** 或者 *斜体* 某些文字.
+
+　 很多产品的文档也是用markdown编写的，并且.MD后缀名的文件保存在项目的目录下。    
 
     Markdown is a way to style text on the web. You control the display of the document; 
     formatting words as bold or italic, adding images, and creating lists are just a few of the things we can do with Markdown.
     Mostly, Markdown is just regular text with a few non-alphabetic characters thrown in, like # or *.                         
  
-　 Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：如您正在阅读的这篇文章。它使用简单的符号标记不同的标题，分割不同的段落，**粗体** 或者 *斜体* 某些文字.
-
-　 很多产品的文档也是用markdown编写的，并且.MD后缀名的文件保存在项目的目录下。    
-
-
 ### [Markdown官方介绍](https://guides.github.com/features/mastering-markdown/)
 官方地址：https://guides.github.com/features/mastering-markdown/
 

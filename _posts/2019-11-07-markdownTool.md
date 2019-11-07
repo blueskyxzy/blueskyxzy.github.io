@@ -30,13 +30,13 @@ tags: 总结
 *****    
 
 #### 字体加粗：  
-**bold**  
+**bold**
   
 ####字体倾斜：   
-*italic*  
+*italic*
     
 ####字体倾斜和加粗：    
-***bold&italic***  
+***bold&italic***
 
 ####链接Links：  
 [link to Google!](http://google.com)  

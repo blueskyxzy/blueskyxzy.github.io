@@ -21,88 +21,87 @@ tags: 总结
 
 ### Examples  
 
- #### 段落 : 段落之间空一行  
+#### 段落 : 段落之间空一行  
          
- #### 换行符 : 一行结束时输入两个空格                 
+#### 换行符 : 一行结束时输入两个空格                 
        
- #### 画平行线：三个或者三个以上的 - 或者 * 都可以。  
- ***  
- *****    
+#### 画平行线：三个或者三个以上的 - 或者 * 都可以。  
+***  
+*****    
 
- #### 字体加粗：  
- **bold**  
+#### 字体加粗：  
+**bold**  
   
- ####字体倾斜：   
- *italic*  
+####字体倾斜：   
+*italic*  
     
- ####字体倾斜和加粗：    
- ***bold&italic***  
+####字体倾斜和加粗：    
+***bold&italic***  
 
- ####链接Links：  
- [link to Google!](http://google.com)  
+####链接Links：  
+[link to Google!](http://google.com)  
     
- ####删除线Strikethrough:  
- ~~this~~  
+####删除线Strikethrough:  
+~~this~~  
 
- ####文字大小：  
- ****
- # This is an h1 tag
- ## This is an h2 tag
- ### This is an h3 tag 
- #### This is an h4 tag 
- ##### This is an h5 tag 
- ###### This is an h6 tag 
- ****
+####文字大小：  
+****
+# This is an h1 tag
+## This is an h2 tag
+### This is an h3 tag 
+#### This is an h4 tag 
+##### This is an h5 tag 
+###### This is an h6 tag 
+****
 
- ####无序列表Unordered Lists：无序列表用 - + * 任何一种都可以  
- * Item 1
- * Item 2
-  * Item 2a
-  * Item 2b 
+####无序列表Unordered Lists：无序列表用 - + * 任何一种都可以  
+* Item 1
+* Item 2
+ * Item 2a
+ * Item 2b 
   
- ####有序列表Ordered Lists:数字加点   列表嵌套:上一级和下一级之间敲三个空格即可  
- 1. Item 1
- 1. Item 2
- 1. Item 3
-   1. Item 3a
-   1. Item 3b
+####有序列表Ordered Lists:数字加点   列表嵌套:上一级和下一级之间敲三个空格即可  
+1. Item 1
+1. Item 2
+1. Item 3
+  1. Item 3a
+  1. Item 3b
 
- ####图片Images: 
- ![GitHub Logo](/images/logo.png)  
- Format: ![Alt Text](url)  
+####图片Images: 
+![GitHub Logo](/images/logo.png)  
+Format: ![Alt Text](url)  
 
- ####引用块Blockquotes:
- > We're living the future so
- > the present is our past.  
+####引用块Blockquotes:
+> We're living the future so
+> the present is our past.  
 
- ####引用也可以嵌套：  
- > 这是引用的内容
- >> 这是引用的内容  
- >>> 这是引用的内容  
+####引用也可以嵌套：  
+> 这是引用的内容
+>> 这是引用的内容  
+>>> 这是引用的内容  
 
 
- ####内联代码Inline code:  代码之间分别用一个反引号包起来  
- 内嵌代码`alert('Hello World');`
- I think you should use an `<addr>` element here instead.
- css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法
+####内联代码Inline code:  代码之间分别用一个反引号包起来  
+内嵌代码`alert('Hello World');`
+I think you should use an `<addr>` element here instead.
+css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法
 
- ####Syntax highlighting：
- Here’s an example of how you can use syntax highlighting with GitHub Flavored Markdown:
- You can also simply indent your code by four spaces:
- Python code without syntax highlighting:
+####Syntax highlighting：
+Here’s an example of how you can use syntax highlighting with GitHub Flavored Markdown:  
+You can also simply indent your code by four spaces  
+Python code without syntax highlighting:
         
- ####任务清单Task Lists:  
- - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
- - [x] list syntax required (any unordered or ordered list supported)
- - [x] this is a complete item
- - [ ] this is an incomplete item
+####任务清单Task Lists:  
+- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [x] this is a complete item
+- [ ] this is an incomplete item
 
- ####表格Tables:  
- First Header | Second Header 
- ------------ | -------------
- Content from cell 1 | Content from cell 2
- Content in the first column | Content in the second column
-
+####表格Tables:  
+First Header | Second Header 
+------------ | -------------
+Content from cell 1 | Content from cell 2
+Content in the first column | Content in the second column
 
 ####SHA引用SHA references:  
 16c999e8c71134401a78d4d46435517b2271d6ac  

@@ -8,8 +8,10 @@ tags: 总结
 
 ### 什么是 Markdown  
  
-   Markdown是一种轻量级标记语言，它以纯文本形式(易读、易写、易更改)编写文档，并最终以HTML格式发布。  
+   Markdown是一种轻量级标记语言，它以纯文本形式(易读、易写、易更改)编写文档，并最终以HTML格式发布。
+    
    Markdown也可以理解为将以MARKDOWN语法编写的语言转换成HTML内容的工具。  
+   
 　 很多产品的文档也是用markdown编写的，并且以.MD或者.markdown后缀的文件保存在项目的目录下。   
 
     Markdown is a way to style text on the web. You control the display of the document; 

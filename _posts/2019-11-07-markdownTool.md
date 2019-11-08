@@ -142,9 +142,7 @@ To see a list of every image we support, check out the [Emoji Cheat Sheet](https
 
 #### 24.数学公式：  
     
-$$
-\mathbf{V}_1 \times \mathbf{V}_2
-$$
+$ J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，行内公式示例} $
 
 #### 25.流程图：  
 ```mermaid

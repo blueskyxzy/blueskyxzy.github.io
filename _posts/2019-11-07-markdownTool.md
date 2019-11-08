@@ -121,7 +121,7 @@ Content in the first column | Content in the second column
 mojombo@16c999e8c71134401a78d4d46435517b2271d6ac  
 mojombo/github-flavored-markdown@16c999e8c71134401a78d4d46435517b2271d6ac  
 
-#### 20.Issue references within a repository:
+#### 20.Issue references within a repository:  
 #1  
 mojombo#1  
 mojombo/github-flavored-markdown#1  
@@ -131,7 +131,8 @@ mojombo/github-flavored-markdown#1
 
 #### 23.表情符号表情Emoji:  
 GitHub supports [emoji](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#using-emoji)!  
-To see a list of every image we support, check out the [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).
+To see a list of every image we support, check out the [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).  
+:stuck_out_tongue_winking_eye:	:thinking:  :joy: :smile:
 
 #### 23.转义：
 使用反斜杠转义特殊字符：  

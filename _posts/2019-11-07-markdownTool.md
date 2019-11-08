@@ -74,7 +74,7 @@ Markdown 还没有办法指定图片的高度与宽度，如果你需要的话�
 <img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
 
 #### 13.引用块Blockquotes:
-> We're living the future so
+> We're living the future so  
 > the present is our past.  
 
 #### 14.引用也可以嵌套：  

@@ -84,7 +84,7 @@ Markdown 还没有办法指定图片的高度与宽度，如果你需要的话�
 I think you should use an `<addr>` element here instead.  
 css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法
 
-支持的 HTML 元素有：<kbd> <b> <i> <em> <sup> <sub> <br>等：  
+支持的 HTML 元素有：<kbd> <b> <i> <em> <sup> <sub> <br>等：    
 使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
 
 #### 16.Syntax highlighting：

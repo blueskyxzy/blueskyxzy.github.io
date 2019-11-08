@@ -130,7 +130,7 @@ mojombo/github-flavored-markdown#1
 #### 23.表情符号Emoji:  
 GitHub supports [emoji](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#using-emoji)!  
 To see a list of every image we support, check out the [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).  
-表情实例:stuck_out_tongue_winking_eye:,:thinking:,:joy:,:smile:
+表情实例 :stuck_out_tongue_winking_eye: :thinking: :joy: :smile: ：smile：
 
 #### 23.转义：
 使用反斜杠转义特殊字符：  

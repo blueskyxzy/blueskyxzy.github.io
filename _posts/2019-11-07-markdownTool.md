@@ -58,7 +58,7 @@ tags: 总结
 * Item 1
 * Item 2
    * Item 2a
-   * Item 2b 
+   * Item 2b
   
 #### 11.有序列表Ordered Lists:数字加点   列表嵌套:上一级和下一级之间敲三个空格即可  
 1. Item 1
@@ -68,8 +68,10 @@ tags: 总结
    1. Item 3b
 
 #### 12.图片Images: 
-![GitHub Logo](/images/logo.png)  
-Format: ![Alt Text](url)  
+![GitHub Logo](/images/zhihu.png)  
+Format: ![Alt Text](/images/zhihu.png)  
+Markdown 还没有办法指定图片的高度与宽度，如果你需要的话，你可以使用普通的 <img> 标签。  
+<img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
 
 #### 13.引用块Blockquotes:
 > We're living the future so

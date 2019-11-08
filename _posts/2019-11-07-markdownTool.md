@@ -137,7 +137,6 @@ To see a list of every image we support, check out the [Emoji Cheat Sheet](https
 \*\* 正常显示星号 \*\*
 
 #### 24.数学公式：  
-    可以使用两个美元符 $$ 包裹 TeX 或 LaTeX 格式的数学公式来实现  
     
 $$
 \mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 

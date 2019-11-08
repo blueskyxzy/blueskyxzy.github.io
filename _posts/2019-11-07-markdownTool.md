@@ -156,8 +156,10 @@ google浏览器中安装插件https://chrome.google.com/webstore/detail/mathjax-
 
 流程图也是，也就是说gitHub不能直接支持数学公式和流程图？这样的话 就需要Typora或者google插件显示出来后截图这样公式图片就有了，这样博客上的数学公式和流程图问题也间接解决了
 
-#### 22.流程图:（注意上面也要留一空行）  
+Typora截图：
 
+#### 22.流程图:（注意上面也要留一空行）  
+![流程图1](/images/posts/markdown/markdown002.png)  
 ```mermaid
 graph TD
 A[方形] --> B(圆角)

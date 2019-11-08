@@ -98,9 +98,9 @@ Python code without syntax highlighting:
 - [ ] this is an incomplete item
 
 #### 18.表格Tables:  
-First Header | Second Header
------------- | -------------
-Content from cell 1 | Content from cell 2
+First Header | Second Header  
+------------ | -------------  
+Content from cell 1 | Content from cell 2  
 Content in the first column | Content in the second column
 
 #### 19.SHA引用SHA references:  

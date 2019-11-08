@@ -8,11 +8,11 @@ tags: 总结
 
 ### 什么是 Markdown  
  
-   Markdown是一种轻量级标记语言，它以纯文本形式(易读、易写、易更改)编写文档，并最终以HTML格式发布。
+Markdown是一种轻量级标记语言，它以纯文本形式(易读、易写、易更改)编写文档，并最终以HTML格式发布。
     
-   Markdown也可以理解为将以MARKDOWN语法编写的语言转换成HTML内容的工具。  
+Markdown也可以理解为将以MARKDOWN语法编写的语言转换成HTML内容的工具。
    
-　 很多产品的文档也是用markdown编写的，并且以.MD或者.markdown后缀的文件保存在项目的目录下。   
+很多产品的文档也是用markdown编写的，并且以.MD或者.markdown后缀的文件保存在项目的目录下。   
 
     Markdown is a way to style text on the web. You control the display of the document; 
     formatting words as bold or italic, adding images, and creating lists are just a few of the things we can do with Markdown.
@@ -131,7 +131,7 @@ mojombo/github-flavored-markdown#1
 #### 23.表情符号Emoji:  
 GitHub supports [emoji](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#using-emoji)!  
 To see a list of every image we support, check out the [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).  
-表情实例 :stuck_out_tongue_winking_eye: :thinking: :joy: :smile:  （这里是github支持的md的表情，但博客上没有成功）  
+表情实例 :stuck_out_tongue_winking_eye: :thinking: :joy: :smile:  （这里是github支持的md表情，但该博客上没有成功）  
 原理还是字母和url键值对实现的，如 ![text](https://github.githubassets.com/images/icons/emoji/unicode/1f914.png?v8), 该表情url地址是https://github.githubassets.com/images/icons/emoji/unicode/1f914.png?v8  
 [所有表情url地址](https://api.github.com/emojis)：https://api.github.com/emojis
 

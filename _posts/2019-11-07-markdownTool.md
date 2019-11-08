@@ -65,7 +65,7 @@ tags: 总结
    - Item 3b
 
 #### 12.图片Images: 
-![GitHub Logo](/images/zhihu.png)  
+[GitHub Logo](/images/zhihu.png)  
 Format: ![Alt Text](/images/zhihu.png)  
 Markdown 还没有办法指定图片的高度与宽度，如果你需要的话，你可以使用普通的 <img> 标签。  
 <img src="http://static.runoob.com/images/runoob-logo.png" width="50%">

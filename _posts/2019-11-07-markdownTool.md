@@ -87,7 +87,7 @@ css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器
 支持的 HTML 元素有：`<kbd> <b> <i> <em> <sup> <sub> <br>`等:  
 使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
 
-#### 16.Syntax highlighting：
+#### 16.Syntax highlighting:  
     Here’s an example of how you can use syntax highlighting with GitHub Flavored Markdown
     
     You can also simply indent your code by four spaces  

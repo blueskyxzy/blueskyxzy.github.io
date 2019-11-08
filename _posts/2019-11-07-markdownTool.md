@@ -82,8 +82,8 @@ Format: ![Alt Text](url)
 
 
 #### 内联代码Inline code:  代码之间分别用一个反引号包起来  
-内嵌代码`alert('Hello World');`
-I think you should use an `<addr>` element here instead.
+内嵌代码`alert('Hello World');`  
+I think you should use an `<addr>` element here instead.  
 css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法
 
 #### Syntax highlighting：

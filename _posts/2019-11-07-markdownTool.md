@@ -139,11 +139,7 @@ To see a list of every image we support, check out the [Emoji Cheat Sheet](https
 #### 24.数学公式：  
     
 $$
-\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
-\mathbf{i} & \mathbf{j} & \mathbf{k} \\
-\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
-\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
-\end{vmatrix}
+\mathbf{V}_1 \times \mathbf{V}_2
 $$
 
 #### 25.流程图：  

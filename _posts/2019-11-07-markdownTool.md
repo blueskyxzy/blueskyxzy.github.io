@@ -161,20 +161,12 @@ google浏览器中安装插件https://chrome.google.com/webstore/detail/mathjax-
 #### 25.流程图：  
 
 ```mermaid
-graph LR
-A[方形] -->B(圆角)
+graph TD
+A[方形] --> B(圆角)
     B --> C{条件a}
-    C -->|a=1| D[结果1]
-    C -->|a=2| E[结果2]
-    F[横向流程图]
+    C --> |a=1| D[结果1]
+    C --> |a=2| E[结果2]
+    F[竖向流程图]
 ```
+这里也没法显示，通过Typora截图如下
 
-```flow
-st=>start: 开始
-op=>operation: My Operation
-cond=>condition: Yes or No?
-e=>end
-st->op->cond
-cond(yes)->e
-cond(no)->op
-&```

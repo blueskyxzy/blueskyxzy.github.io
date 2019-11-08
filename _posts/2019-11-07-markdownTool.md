@@ -156,9 +156,10 @@ $$
 
 这里发现本博客，github，部分markDown软件 无法显示markDown上的公式，Typora可正常显示  
 google浏览器中安装插件https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related   插件名：MathJax Plugin for Github  注意：需要科学上网  
-也就是说gitHub不能直接支持数学公式吗？
+流程图也是，也就是说gitHub不能直接支持数学公式和流程图？这样的话 就需要Typora或者google插件显示出来后截图这样公式图片就有了，这样博客上的数学公式和流程图问题也间接解决了
 
 #### 25.流程图：  
+
 ```mermaid
 graph LR
 A[方形] -->B(圆角)

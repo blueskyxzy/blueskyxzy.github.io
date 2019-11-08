@@ -10,7 +10,7 @@ tags: 总结
  
    Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：如您正在阅读的这篇文章。它使用简单的符号标记不同的标题，分割不同的段落，**粗体** 或者 *斜体* 某些文字.
 
-　 很多产品的文档也是用markdown编写的，并且.MD后缀名的文件保存在项目的目录下。    
+　 很多产品的文档也是用markdown编写的，并且以.MD或者.markdown后缀的文件保存在项目的目录下。    
 
     Markdown is a way to style text on the web. You control the display of the document; 
     formatting words as bold or italic, adding images, and creating lists are just a few of the things we can do with Markdown.
@@ -57,15 +57,15 @@ tags: 总结
 #### 10.无序列表Unordered Lists：无序列表用 - + * 任何一种都可以  
 * Item 1
 * Item 2
- * Item 2a
- * Item 2b 
+   * Item 2a
+   * Item 2b 
   
 #### 11.有序列表Ordered Lists:数字加点   列表嵌套:上一级和下一级之间敲三个空格即可  
 1. Item 1
 1. Item 2
 1. Item 3
-  1. Item 3a
-  1. Item 3b
+   1. Item 3a
+   1. Item 3b
 
 #### 12.图片Images: 
 ![GitHub Logo](/images/logo.png)  

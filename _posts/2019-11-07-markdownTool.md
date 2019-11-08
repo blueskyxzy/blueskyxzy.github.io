@@ -8,9 +8,9 @@ tags: 总结
 
 ### 什么是 Markdown  
  
-   Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：如您正在阅读的这篇文章。它使用简单的符号标记不同的标题，分割不同的段落，**粗体** 或者 *斜体* 某些文字.
-
-　 很多产品的文档也是用markdown编写的，并且以.MD或者.markdown后缀的文件保存在项目的目录下。    
+   Markdown是一种轻量级标记语言，它以纯文本形式(易读、易写、易更改)编写文档，并最终以HTML格式发布。  
+   Markdown也可以理解为将以MARKDOWN语法编写的语言转换成HTML内容的工具。  
+　 很多产品的文档也是用markdown编写的，并且以.MD或者.markdown后缀的文件保存在项目的目录下。   
 
     Markdown is a way to style text on the web. You control the display of the document; 
     formatting words as bold or italic, adding images, and creating lists are just a few of the things we can do with Markdown.
@@ -78,7 +78,7 @@ Markdown 还没有办法指定图片的高度与宽度，如果你需要的话�
 >> 这是引用的内容  
 >>> 这是引用的内容
 
-#### 15.内联代码Inline code:  代码之间分别用一个反引号包起来  
+#### 15.内联代码Inline code:  代码之间分别用一个反引号包起来  符号''起到标记的作用 
 内嵌代码`alert('Hello World');`  
 I think you should use an `<addr>` element here instead.  
 css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法

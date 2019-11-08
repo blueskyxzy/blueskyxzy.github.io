@@ -146,6 +146,9 @@ To see a list of every image we support, check out the [Emoji Cheat Sheet](https
 
 $ J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，行内公式示例} $
 
+这里发现本博客，github，部分markDown软件 无法显示markDown上的公式，Typora可正常显示  
+google浏览器中安装插件https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related注意：需要科学上网  
+
 #### 25.流程图：  
 ```mermaid
 graph LR

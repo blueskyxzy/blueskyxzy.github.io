@@ -87,9 +87,11 @@ I think you should use an `<addr>` element here instead.
 css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法
 
 #### 16.Syntax highlighting：
-Here’s an example of how you can use syntax highlighting with GitHub Flavored Markdown:  
-You can also simply indent your code by four spaces  
-Python code without syntax highlighting:
+    Here’s an example of how you can use syntax highlighting with GitHub Flavored Markdown
+    
+    You can also simply indent your code by four spaces  
+    
+    Python code without syntax highlighting:
         
 #### 17.任务清单Task Lists:  
 - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported

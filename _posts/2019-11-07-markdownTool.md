@@ -129,17 +129,25 @@ mojombo/github-flavored-markdown#1
 #### 21.Username @mentions:  
 @mention
 
-#### 22.Automatic linking for URLs:  
-Any URL (like http://www.github.com/) will be automatically converted into a clickable link.
-
 #### 23.表情符号表情Emoji:  
 GitHub supports [emoji](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#using-emoji)!  
 To see a list of every image we support, check out the [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).
 
-#### 24.转义：
+#### 23.转义：
 使用反斜杠转义特殊字符：  
 **文本加粗**  
 \*\* 正常显示星号 \*\*
+
+#### 24.数学公式：  
+可以使用两个美元符 $$ 包裹 TeX 或 LaTeX 格式的数学公式来实现  
+$$
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
+\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
+\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
+\end{vmatrix}
+$$tep1}{\style{visibility:hidden}{(x+1)(x+1)}}
+$$
 
 #### 25.流程图：  
 ```flow
@@ -151,14 +159,3 @@ st->op->cond
 cond(yes)->e
 cond(no)->op
 &```
-
-#### 26.数学公式：  
-可以使用两个美元符 $$ 包裹 TeX 或 LaTeX 格式的数学公式来实现  
-$$
-\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
-\mathbf{i} & \mathbf{j} & \mathbf{k} \\
-\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
-\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
-\end{vmatrix}
-$$tep1}{\style{visibility:hidden}{(x+1)(x+1)}}
-$$

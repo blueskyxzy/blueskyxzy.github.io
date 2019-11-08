@@ -149,7 +149,7 @@ $$
 
 矢量 $$\vec{a} \cdot \vec{b}=0$$
 
-详细可查看：https://www.zybuluo.com/codeep/note/163962
+数学公式详细可查看：https://www.zybuluo.com/codeep/note/163962
 
 这里发现本博客,github,部分markDown软件无法显示markDown上的公式，Typora可正常显示  
 google浏览器中安装插件https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related   插件名：MathJax Plugin for Github  注意：需要科学上网  

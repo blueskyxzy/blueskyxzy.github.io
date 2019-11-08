@@ -77,12 +77,12 @@ Markdown 还没有办法指定图片的高度与宽度，如果你需要的话�
 
 > 野火烧不尽，春风吹又生。
 
-#### 14.引用也可以嵌套：  
+引用也可以嵌套：  
 > 这是引用的内容  
 >> 这是引用的内容  
 >>> 这是引用的内容
 
-#### 15.内联代码Inline code:  代码之间分别用一个反引号包起来  符号''起到标记的作用  
+#### 14.内联代码Inline code:  代码之间分别用一个反引号包起来  符号''起到标记的作用  
 内嵌代码`alert('Hello World');`  
 I think you should use an `<addr>` element here instead.  
 css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法
@@ -90,20 +90,20 @@ css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器
 支持的 HTML 元素有：`<kbd> <b> <i> <em> <sup> <sub> <br>`等:  
 使用 <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Del</kbd> 重启电脑
 
-#### 16.Syntax highlighting:  
+#### 15.Syntax highlighting:  
     Here’s an example of how you can use syntax highlighting with GitHub Flavored Markdown
     
     You can also simply indent your code by four spaces  
     
     Python code without syntax highlighting:
         
-#### 17.任务清单Task Lists:  
+#### 16.任务清单Task Lists:  
 - [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
 - [x] list syntax required (any unordered or ordered list supported)
 - [x] this is a complete item
 - [ ] this is an incomplete item
 
-#### 18.表格Tables:  
+#### 17.表格Tables:  
 
 First Header | Second Header
 ------------ | -------------
@@ -117,22 +117,22 @@ Content in the first column | Content in the second column
 | 单元格 | 单元格 | 单元格 |
 | 单元格 | 单元格 | 单元格 |
 
-#### 19.Username @mentions:  
+#### 18.Username @mentions:  
 @mention
 
-#### 20.表情符号Emoji:  
+#### 19.表情符号Emoji:  
 GitHub supports [emoji](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#using-emoji)!  
 To see a list of every image we support, check out the [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).  
 表情实例 :stuck_out_tongue_winking_eye: :thinking: :joy: :smile:  （这里是github支持的md表情，但该博客上没有成功）  
 原理还是字母和url键值对实现的，如 ![text](https://github.githubassets.com/images/icons/emoji/unicode/1f914.png?v8), 该表情url地址是https://github.githubassets.com/images/icons/emoji/unicode/1f914.png?v8  
 [所有表情url地址](https://api.github.com/emojis)：https://api.github.com/emojis
 
-#### 21.转义：
+#### 20.转义：
 使用反斜杠转义特殊字符：  
 **文本加粗**  
 \*\* 正常显示星号 \*\*
 
-#### 22.数学公式 :
+#### 21.数学公式 :
 
 $ J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，行内公式示例} $
 
@@ -156,7 +156,7 @@ google浏览器中安装插件https://chrome.google.com/webstore/detail/mathjax-
 
 流程图也是，也就是说gitHub不能直接支持数学公式和流程图？这样的话 就需要Typora或者google插件显示出来后截图这样公式图片就有了，这样博客上的数学公式和流程图问题也间接解决了
 
-#### 23.流程图：  
+#### 22.流程图：  
 
 ```mermaid
 graph TD

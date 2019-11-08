@@ -146,6 +146,7 @@ To see a list of every image we support, check out the [Emoji Cheat Sheet](https
 
 $ J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，行内公式示例} $
 
+线性代数  
 $$
 \mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
 \mathbf{i} & \mathbf{j} & \mathbf{k} \\
@@ -153,6 +154,12 @@ $$
 \frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
 \end{vmatrix}
 $$
+
+开方 $$\sqrt{2} \quad and \quad \sqrt[n]{3}$$
+
+矢量 $$\vec{a} \cdot \vec{b}=0$$
+
+详细可查看：https://www.zybuluo.com/codeep/note/163962
 
 这里发现本博客，github，部分markDown软件 无法显示markDown上的公式，Typora可正常显示  
 google浏览器中安装插件https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related   插件名：MathJax Plugin for Github  注意：需要科学上网  

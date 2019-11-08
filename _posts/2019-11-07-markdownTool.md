@@ -170,3 +170,5 @@ A[方形] --> B(圆角)
 ```
 这里也没法显示，通过Typora截图如下
 
+![流程图1](/images/posts/markdown/markdown001.png)  
+

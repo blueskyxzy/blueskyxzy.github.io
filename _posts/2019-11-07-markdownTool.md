@@ -87,6 +87,9 @@ Markdown 还没有办法指定图片的高度与宽度，如果你需要的话�
 I think you should use an `<addr>` element here instead.  
 css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器渲染出来的 markdown 内容样式也不一样，下面这些链接里面有 markdown 基本语法
 
+支持的 HTML 元素有：<kbd> <b> <i> <em> <sup> <sub> <br>等：  
+使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑
+
 #### 16.Syntax highlighting：
     Here’s an example of how you can use syntax highlighting with GitHub Flavored Markdown
     
@@ -133,7 +136,12 @@ Any URL (like http://www.github.com/) will be automatically converted into a cli
 GitHub supports [emoji](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#using-emoji)!  
 To see a list of every image we support, check out the [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).
 
-#### 24.流程图：  
+#### 24.转义：
+使用反斜杠转义特殊字符：  
+**文本加粗**  
+\*\* 正常显示星号 \*\*
+
+#### 25.流程图：  
 ```flow
 st=>start: 开始
 op=>operation: My Operation

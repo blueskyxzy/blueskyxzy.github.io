@@ -100,17 +100,18 @@ css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器
 - [x] this is a complete item
 - [ ] this is an incomplete item
 
-#### 18.表格Tables: - : 组合可设置对其方式  
-| 左对齐 | 右对齐 | 居中对齐 |
-| :-----| ----: | :----: |
-| 单元格 | 单元格 | 单元格 |
-| 单元格 | 单元格 | 单元格 |
+#### 18.表格Tables:  
 
 First Header | Second Header  
 ------------ | -------------  
 Content from cell 1 | Content from cell 2  
 Content in the first column | Content in the second column
 
+- : 组合可设置对其方式：  
+| 左对齐 | 右对齐 | 居中对齐 |
+| :-----| ----: | :----: |
+| 单元格 | 单元格 | 单元格 |
+| 单元格 | 单元格 | 单元格 |
 #### 19.SHA引用SHA references:  
 16c999e8c71134401a78d4d46435517b2271d6ac  
 mojombo@16c999e8c71134401a78d4d46435517b2271d6ac  

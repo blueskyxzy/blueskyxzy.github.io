@@ -31,18 +31,18 @@ tags: 总结
 
 #### 字体加粗：  
 **bold**
-  
+
 ####字体倾斜：   
 *italic*
-    
-####字体倾斜和加粗：    
+
+####字体倾斜和加粗：  
 ***bold&italic***
 
 ####链接Links：  
-[link to Google!](http://google.com)  
-    
+[link to Google!](http://google.com)
+
 ####删除线Strikethrough:  
-~~this~~  
+~~this~~
 
 ####文字大小：  
 ****

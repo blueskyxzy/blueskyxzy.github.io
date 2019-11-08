@@ -117,32 +117,22 @@ Content in the first column | Content in the second column
 | 单元格 | 单元格 | 单元格 |
 | 单元格 | 单元格 | 单元格 |
 
-#### 19.SHA引用SHA references:  
-16c999e8c71134401a78d4d46435517b2271d6ac  
-mojombo@16c999e8c71134401a78d4d46435517b2271d6ac  
-mojombo/github-flavored-markdown@16c999e8c71134401a78d4d46435517b2271d6ac  
-
-#### 20.Issue references within a repository:  
-#1  
-mojombo#1  
-mojombo/github-flavored-markdown#1  
-
-#### 21.Username @mentions:  
+#### 19.Username @mentions:  
 @mention
 
-#### 23.表情符号Emoji:  
+#### 20.表情符号Emoji:  
 GitHub supports [emoji](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#using-emoji)!  
 To see a list of every image we support, check out the [Emoji Cheat Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).  
 表情实例 :stuck_out_tongue_winking_eye: :thinking: :joy: :smile:  （这里是github支持的md表情，但该博客上没有成功）  
 原理还是字母和url键值对实现的，如 ![text](https://github.githubassets.com/images/icons/emoji/unicode/1f914.png?v8), 该表情url地址是https://github.githubassets.com/images/icons/emoji/unicode/1f914.png?v8  
 [所有表情url地址](https://api.github.com/emojis)：https://api.github.com/emojis
 
-#### 23.转义：
+#### 21.转义：
 使用反斜杠转义特殊字符：  
 **文本加粗**  
 \*\* 正常显示星号 \*\*
 
-#### 24.数学公式 :
+#### 22.数学公式 :
 
 $ J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，行内公式示例} $
 
@@ -166,7 +156,7 @@ google浏览器中安装插件https://chrome.google.com/webstore/detail/mathjax-
 
 流程图也是，也就是说gitHub不能直接支持数学公式和流程图？这样的话 就需要Typora或者google插件显示出来后截图这样公式图片就有了，这样博客上的数学公式和流程图问题也间接解决了
 
-#### 25.流程图：  
+#### 23.流程图：  
 
 ```mermaid
 graph TD

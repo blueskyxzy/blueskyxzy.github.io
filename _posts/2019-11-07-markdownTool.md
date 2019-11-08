@@ -101,6 +101,11 @@ css 的大部分语法同样可以在 markdown 上使用，但不同的渲染器
 - [ ] this is an incomplete item
 
 #### 18.表格Tables:  
+|  表头   | 表头  |
+|  ----  | ----  |
+| 单元格  | 单元格 |
+| 单元格  | 单元格 |
+
 First Header | Second Header  
 ------------ | -------------  
 Content from cell 1 | Content from cell 2  

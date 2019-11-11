@@ -68,7 +68,7 @@ Set存储的是不重复的对象，依据hashCode和equals进行判断，所以
 Arrays.asList()把数组转换成集合时，不能使用add/remove/clear方法，不然会抛出UnsupportedOperationException 异常。
 
 #### 14.split
-String的split方法对"|"， "." 有问题， 需要转义
+String的split方法用"|"， "."等字符分割字符串时有问题， 需要转义
 
 #### 15.BigDecimal精度丢失问题
 new BigDecimal(包装类型)，由于数是二进制存的，转的时候回精度丢失。建议用BigDecimal.valueOf(包装类型)或者new BigDecimal(String), BigDecimal.valueOf底层代码用的就是new BigDecimal(String)

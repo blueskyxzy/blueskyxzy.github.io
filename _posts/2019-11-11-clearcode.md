@@ -123,7 +123,7 @@ ThreadLocal 无法解决共享对象的更新问题，ThreadLocal 对象建议�
 RuntimeException 比如:IndexOutOfBoundsException，NullPointerException可以通过预先检查进行规避，而不应该 通过catch 来处理
 
 #### 26.日志
-生产环境禁输出debug日志;注意不要打印过多info,warn日志，不然服务器磁盘可能会撑爆，并定期检查服务器，删除过时代码
+生产环境禁输出debug日志;注意不要打印过多info,warn日志，不然服务器磁盘可能会撑爆，并定期检查服务器，删除过时日志
 
 #### 27.MYSQL建表
 varchar 是可变长字符串，不预先分配存储空间，长度不要超过 5000，如果存储长 度大于此值，定义字段类型为 text，独立出来一张表，用主键来对应。

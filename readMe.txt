@@ -3,3 +3,5 @@
 2.博客中的图片放在images/posts目录下
 
 3.配置放在_config.yml目录下
+
+4.disqus是ekyll-blogJ(github.io)的评论系统

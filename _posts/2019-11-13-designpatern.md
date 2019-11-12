@@ -40,11 +40,11 @@ in a word, 就是软件设计的套路
 结构性模式的核心作用是在程序上实现松耦合
 ### 设计原则：
    面向对象设计原则： 
-   1.OCP  Open-Closed Principle 开闭原则
+   * 1.OCP  Open-Closed Principle 开闭原则
         对扩展开发，对修改关闭
-   2.DIP  dependence Inversion Principle 依赖倒转原则
+   * 2.DIP  dependence Inversion Principle 依赖倒转原则
         针对接口编程，不要针对实现编程
-   3.LoD  Law of Demeter 迪米特原则
+   * 3.LoD  Law of Demeter 迪米特原则
         只与直接朋友通信，不与陌生人通信
     
     

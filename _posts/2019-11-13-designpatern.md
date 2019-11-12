@@ -75,16 +75,16 @@ in a word, 就是软件设计的套路
 
 ### Examples
 #### 1.单例模式 singleton !!!
-   创建 对象唯一性
+    创建 对象唯一性
 
-   5种实现方式：
+    5种实现方式：
     1.饿汉式（线程安全，效率高，但不能延迟加载）
     2.懒汉式（线程安全，效率不高，能延迟加载）
     3.双重检测琐式（由于JVM底层内部模型原因，偶尔会出问题，不建议使用）
     4.静态内部类式（线程安全，效率高，可以延迟加载）
     5.枚举单例（线程安全，效率高，不能延迟加载）
 
-   应用实例：
+    应用实例：
     1.Windows的 任务管理器
     2.Windows的回收站
     3.读取配置文件的类
@@ -97,17 +97,17 @@ in a word, 就是软件设计的套路
     10.Spring MVC/struts1中的控制器对象
 
 #### 2.工厂模式 !!!
-   用工厂创new不同类型的类
-   易于相同功能接口不同实现类的扩展维护
+    用工厂创new不同类型的类
+    易于相同功能接口不同实现类的扩展维护
 
-   简单工厂simplefactory
-   不满足开闭原则，扩展需要修改factory代码
-   写一个factory类。一个create方法，根据type,if else返回不同的实例对象给接口，通过接口对象调用共同的方法。
+     简单工厂simplefactory
+    不满足开闭原则，扩展需要修改factory代码
+    写一个factory类。一个create方法，根据type,if else返回不同的实例对象给接口，通过接口对象调用共同的方法。
 
-   工厂方法factorymethod
-   写一个工厂接口 多个自定义的工厂类，扩展新增工厂类和创建对应实现类的方法。
+    工厂方法factorymethod
+    写一个工厂接口 多个自定义的工厂类，扩展新增工厂类和创建对应实现类的方法。
 
-   应用实例：
+    应用实例：
     1.JDK中的Calendar的getInstance
     2.JDBC中Connectio对象的获取
     3.Hibernate中SessionFactory创建session
@@ -116,45 +116,45 @@ in a word, 就是软件设计的套路
     6.反射中CLass对象的newInstance()
 
 #### 3.抽象工厂模式 abstractfactory
-   产品族
-   用于不同产品族的全部产品
-   多个业务种类，业务分类
-   写一个工厂接口 多个产品接口，多个工厂类创建不同类型的产品实现。
+    产品族
+    用于不同产品族的全部产品
+    多个业务种类，业务分类
+    写一个工厂接口 多个产品接口，多个工厂类创建不同类型的产品实现。
 
 #### 4.创造者模式 builder  !!!
-   复杂对象由多个成员对象，先new成员对象（构建），再set进去（装配）。
-   构建（Builder负责）和装配（Director负责）的解耦，和复用
+    复杂对象由多个成员对象，先new成员对象（构建），再set进去（装配）。
+    构建（Builder负责）和装配（Director负责）的解耦，和复用
 
-   写一个构建接口和装配器接口以及他们的实现。Builder实现产品的各成员变量的创建，写几个各成员变量build的方法，
+    写一个构建接口和装配器接口以及他们的实现。Builder实现产品的各成员变量的创建，写几个各成员变量build的方法，
     装配写一个方法将bulid的成员变量set入产品对象来实例的初始化
     构建build意思是new 产品的各个组件，装配Director是set各组件成员变量
 
-   场景：
+    场景：
     1.StringBuilder类的append方法
     2.SQL中的PreparedStatement
     3.JDOM中，DomBuilder,SAXBulder
 
 #### 5.原型模式 又叫克隆模式，拷贝模式 prototype
-   不new对象，拷贝已有对象
-   new 对象数据准备和访问繁琐，耗时，需求拷贝
-   是内存操作，不同于new
+    不new对象，拷贝已有对象
+    new 对象数据准备和访问繁琐，耗时，需求拷贝
+    是内存操作，不同于new
 
-   类需要实现Cloneable接口和clone方法(Object的方法)
-   Prototype模式中最困难的是内存复制，java提供clone方法实现
+    类需要实现Cloneable接口和clone方法(Object的方法)
+    Prototype模式中最困难的是内存复制，java提供clone方法实现
 
-   已有对象.clone,创建新对象，分为深拷贝和浅拷贝。浅复制是内存一样，引用变了，值也变了
+    已有对象.clone,创建新对象，分为深拷贝和浅拷贝。浅复制是内存一样，引用变了，值也变了
 
 #### 6.适配器模式 adapter ！！！
-   接口适配
-   不修改不兼容接口，转成客户需要的另一个接口,  维护不需要修改原代码
+    接口适配
+    不修改不兼容接口，转成客户需要的另一个接口,  维护不需要修改原代码
 
-   适配器继承或依赖已有的对象，实现想要的目标接口
-   目标接口Target，需求适配的接口Adaptee，适配器Adapter。
+    适配器继承或依赖已有的对象，实现想要的目标接口
+    目标接口Target，需求适配的接口Adaptee，适配器Adapter。
 
-   类适配器方式：适配器继承Adaptee,实现Target.Target方法中调用Adaptee的方法 Target t = new Adapter();
-   对象适配器方式，使用组合方式整合：实现Target,保存Adaptee成员变量，先构造实例化再调用方法。可弥补单继承缺陷 Target t2 = new Adapter2(new Adaptee());
+    类适配器方式：适配器继承Adaptee,实现Target.Target方法中调用Adaptee的方法 Target t = new Adapter();
+    对象适配器方式，使用组合方式整合：实现Target,保存Adaptee成员变量，先构造实例化再调用方法。可弥补单继承缺陷 Target t2 = new Adapter2(new Adaptee());
 
-   应用实例：
+    应用实例：
     1、美国电器 110V，中国 220V，就要有一个适配器将 110V 转化为 220V。
     2、JAVA JDK 1.1 提供了 Enumeration 接口，而在 1.2 中提供了 Iterator 接口，想要使用 1.2 的 JDK，则要将以前系统的 Enumeration 接口转化为 Iterator 接口，这时就需要适配器模式。
     3、在 LINUX 上运行 WINDOWS 程序。

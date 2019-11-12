@@ -47,7 +47,6 @@ in a word, 就是软件设计的套路
    * 3.LoD  Law of Demeter 迪米特原则
         只与直接朋友通信，不与陌生人通信
     
-    
    设计模式的六大原则：
    
    * 1.开闭原则（Open Close Principle）

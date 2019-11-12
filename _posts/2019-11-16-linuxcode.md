@@ -27,7 +27,7 @@ chmod 授权
 tail -f  
 cat  
 more  
-less   Shirf+G   q  
+less   Shift+G   q  
 vim  :    wq!  q!         /需要搜索的字符串  n   Enter  
 grep 关键词搜索  
 

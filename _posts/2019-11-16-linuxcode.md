@@ -79,12 +79,12 @@ date -s 20061010 //设置成20061010，这样会把具体时间设置成空00:00
 
 ### 全部命令
 #### 1.系统信息
-arch 显示机器的处理器架构(1)
-uname -m 显示机器的处理器架构(2)
-uname -r 显示正在使用的内核版本
-dmidecode -q 显示硬件系统部件 - (SMBIOS / DMI)
-hdparm -i /dev/hda 罗列一个磁盘的架构特性
-hdparm -tT /dev/sda 在磁盘上执行测试性读取操作
+arch 显示机器的处理器架构(1)  
+uname -m 显示机器的处理器架构(2)  
+uname -r 显示正在使用的内核版本  
+dmidecode -q 显示硬件系统部件 - (SMBIOS / DMI)  
+hdparm -i /dev/hda 罗列一个磁盘的架构特性  
+hdparm -tT /dev/sda 在磁盘上执行测试性读取操作  
 cat /proc/cpuinfo 显示CPU info的信息  
 cat /proc/interrupts 显示中断  
 cat /proc/meminfo 校验内存使用  

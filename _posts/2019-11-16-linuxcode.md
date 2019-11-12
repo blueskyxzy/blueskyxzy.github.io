@@ -21,20 +21,24 @@ pwd 显示工作路径
 find  查找文件  
 pwd  当前工作目录路径  
 ps 命令显示运行的进程  
-kill 命令用于终止进程  
+kill 命令用于终止进程    kill -9  pid
 chmod 授权  
+unzip    zip    zip压缩解压  
+
 #### 2.查看日志
 tail -f  
 cat  
 more  
 less   Shift+G   q  
-vim  :    wq!  q!         /需要搜索的字符串  n   Enter  
+vi vim     esc    i   :wq    :q       /需要搜索的字符串  n   Enter  
 grep 关键词搜索  
 
 #### 3.运维
 source /etc/profile         运行文件  
 ifconfig不能用，用ip addr   查看ip等配置  
-service iptables stop   关闭防火墙，这个是临时关闭防火墙。  
+service iptables stop   关闭防火墙，这个是临时关闭防火墙。 
+service mysql start         服务启动
+service mysql stop          服务关闭 
 chkconfig iptables off   永久关闭防火墙  
 ps -ef  显示系统进程  
 ps aux  显示系统进程
@@ -42,13 +46,36 @@ free 查看内存
 top 显示系统中各个进程的资源占用状况，类似于任务管理器  
 ping 用于确定主机与外部连接状态：  
 ssh 远程登录上Linux主机  
-scp 传输文件  
+scp 传输文件   
+cat /proc/version或者uname -a   查看系统版本  
+netstat -alnp | grep 8080 （查看8080是否占用） 
 
 #### 4.特殊
 Java -jar  部署jar包  
 ps -ef | grep test.jar | grep -v grep | cut -c 9-15 | xargs kill -s 9 找到部署的服务并杀死进程  
+ssh root@IP地址  
+mysql -u 用户名 -p  
+jar -cvf 包名-1.0-SNAPSHOT.war ./   打成war包  
 
-date 命令用于显示或设定时间  
+#### 时间
+CST：          中国标准时间（China Standard Time)
+
+hwclock -s     系统间同步至硬件
+date        显示系统时间
+hwclock     系统硬件时间
+date -s     //设置当前时间，只有root权限才能设置，其他只能查看。
+date -s 06/18/17 命令将日期设置为2017年6月18日但是系统时间是00:00:00
+date -s 14:20:50   将时间设置为14点20分50秒
+date -s "12:12:23 2017-12-21" //这样可以设置全部时间
+ntpdate time.nuri.net 将系统时间同步到网络时间
+ntpdate time.nist.gov 将系统时间同步到网络时间
+hwclock -w     硬件间同步至系统
+date 0618141614.30  将时间设置为2014年6月18日14点16分30秒（MMDDhhmmYYYY.ss）
+date -s 20061010 //设置成20061010，这样会把具体时间设置成空00:00:00
+1. 输入ntpdate time.nist.gov同步网络时间
+结果：3 Jun 15:42:39 ntpdate[4721]: adjust time server 211.115.194.21 offset -0.005885 sec
+
+    出现上述结果代表时间同步成功，上面的大致意思为调整时间为服务器211.115.194.21的时间，相差-0.005885秒的时间
 
 ### 全部命令
 #### 1.系统信息

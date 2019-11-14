@@ -4,4 +4,4 @@
 
 3.配置放在_config.yml目录下
 
-4.disqus是ekyll-blogJ(github.io)的评论系统
+4.disqus是ekyll-blogJ(github.io)的评论系统，看了下要收费，本博客暂不支持

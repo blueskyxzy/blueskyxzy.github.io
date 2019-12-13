@@ -5,8 +5,7 @@ date: 2019-12-20
 tags: 技术    
 ---
 
-### 类加载器 classLoader
-#### 类加载器
+### 类加载器
 加载类的抽象类
 
 作用就是将class文件加载到jvm虚拟机中去
@@ -15,7 +14,7 @@ tags: 技术
 
 可以实现ClassLoader的子类，来扩展Java动态加载类的方式
 
-#### 类加载器分类
+### 类加载器分类
 虚拟机不会一次加载全部的class文件，而是根据层级来动态加载
 
 * 启动类加载器(Bootstrap ClassLoader):   
@@ -30,7 +29,7 @@ tags: 技术
     加载用户类路径(CLASSPATH)下的类库,一般我们编写的java类都是由这个类加载器加载,这个类加载器是CLassLoader中的getSystemClassLoader()方法的返回值,所以也称为系统类加载器.
 
 
-#### 类加载器的双亲委派机制
+### 类加载器的双亲委派机制
     如果一个类加载器收到了类加载的请求,它不会自己去尝试加载这个类,而是把这个请求委派给父类加载器去完成,这样层层递进,
     最终所有的加载请求都被传到最顶层的启动类加载器中,只有当父类加载器无法完成这个加载请求(它的搜索范围内没有找到所需的类)时,才会交给子类加载器去尝试加载.
 
@@ -43,7 +42,7 @@ tags: 技术
 Class.forname():是一个静态方法,最常用的是Class.forname(String className);根据传入的类的全限定名返回一个Class对象.该方法在将Class文件加载到内存的同时,会执行类的初始化.
 ClassLoader.loadClass():需要一个ClassLoader对象来调用该方法,该方法将Class文件加载到内存时,并不会执行类的初始化,直到这个类第一次使用时才进行初始化.该方法因为需要得到一个ClassLoader对象,所以可以根据需要指定使用哪个类加载器.
    
-#### 研究
+### 源码研究
 一.Launcher
 sun.misc.Launcher,它是一个java虚拟机的入口应用
 源码如下图1所示：
@@ -301,10 +300,11 @@ defineClass()需要先io读取file文件转成byte[].
 可以通过setContextClassLoader()设置
 
 
-
-
-#### 总结
+### 总结
 1.BootstrapClassLoader、ExtClassLoader、AppClassLoader实际是查阅相应的环境属性sun.boot.class.path、java.ext.dirs和java.class.path来加载资源文件的。
+
 2.自己编写的class是AppClassLoader加载的，int等是BootstrapClassLoader加载的。
+
 3.JVM初始化sun.misc.Launcher并创建Extension ClassLoader和AppClassLoader实例。并将ExtClassLoader设置为AppClassLoader的父加载器。
+
 4.双亲委派。委托是从下向上，然后具体查找过程却是自上至下

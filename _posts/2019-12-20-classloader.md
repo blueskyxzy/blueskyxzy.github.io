@@ -38,12 +38,8 @@ tags: 技术
     类随着它的类加载器拥有了优先级的层次关系，
     如java.langObject,它存放在\jre\lib\rt.jar中,它是所有java类的父类,因此无论哪个类加载都要加载这个类,最终所有的加载请求都汇总到顶层的启动类加载器中,因此Object类会由启动类加载器来加载
 
-
-Class.forname():是一个静态方法,最常用的是Class.forname(String className);根据传入的类的全限定名返回一个Class对象.该方法在将Class文件加载到内存的同时,会执行类的初始化.
-ClassLoader.loadClass():需要一个ClassLoader对象来调用该方法,该方法将Class文件加载到内存时,并不会执行类的初始化,直到这个类第一次使用时才进行初始化.该方法因为需要得到一个ClassLoader对象,所以可以根据需要指定使用哪个类加载器.
-   
 ### 源码研究
-一.Launcher
+一 Launcher
 sun.misc.Launcher,它是一个java虚拟机的入口应用
 源码如下图1所示：
  ![图1](/images/posts/classLoader/1.png)  
@@ -51,14 +47,14 @@ sun.misc.Launcher,它是一个java虚拟机的入口应用
  
  1.构造函数初始化了ExtClassLoader和AppClassLoader
  
- 2.静态属性获取了 System.getProperty("sun.boot.class.path")，这些是/lib下的核心启动jar的路径字符串。再看System源码可以看出事native获取的配置属性
+ 2.静态属性获取了 System.getProperty("sun.boot.class.path")，这些是/lib下的核心启动jar的路径字符串。再看System源码可以看出是native方法获取的配置属性
  
     private static Properties props;
     private static native Properties initProperties(Properties props);
  
  3.后面的代码获取的是SecurityManager，这东西现在不清楚具体干啥，应该和安全，权限等有关
  
-二：SystemClassLoader
+二 SystemClassLoader
  在很多源码中可以看到这句： systemClassLoader = ClassLoader.getSystemClassLoader();
  ![图2](/images/posts/classLoader/2.png)
  通过上面的分析，刚好知道getClassLoader的classLoader就是Launcher初始化中的AppClassLoader。
@@ -81,7 +77,7 @@ sun.misc.Launcher,它是一个java虚拟机的入口应用
       
    System.getProperty("java.class.path");获取classPath地址并用文件系统加载资源   
    
-三：ExtClassLoader
+三 ExtClassLoader
 ExtClassLoader默认是System.getProperty("java.ext.dirs");获取路径地址然后getExtDirs获取file文件资源，并提供getExtURLs等扩展加载资源功能
  
       static class ExtClassLoader extends URLClassLoader {
@@ -127,7 +123,7 @@ ExtClassLoader默认是System.getProperty("java.ext.dirs");获取路径地址然
             ...
       }
     
-四、：ClassLoader的parent
+四 ClassLoader的parent
     自己编写的class是AppClassLoader加载的，int等是BootstrapClassLoader加载的。
    
     
@@ -171,11 +167,11 @@ AppClassLoader(URL[] var1, ClassLoader var2) 的var2就是ExtClassLoader并且�
 
 这里会有一个疑问：明明都只有一个parent，为什么叫双亲委派，不叫父亲委派啥的？   
 国外叫parents delegate model也有parent delegate model   
-1.翻译问题，但毕竟用这么久了，双亲应该有它的道理吧
-2.parent不是通过继承，而是组合来实现的
-3.jvm和classpath两种形式的
+1.翻译问题，但毕竟用这么久了，双亲应该有它的道理吧   
+2.parent不是通过继承，而是组合来实现的   
+3.jvm和classpath两种形式的   
 
-五、：ClassLoader
+五 ClassLoader
 
 重要方法：
 1.Class<?> loadClass(String name)
@@ -278,7 +274,7 @@ AppClassLoader(URL[] var1, ClassLoader var2) 的var2就是ExtClassLoader并且�
 
 
    
-六。自定义ClassLoader   
+六 自定义ClassLoader   
 源码有很多自己重写的ClassLoader,而且ClassLoader又局限性，只能加载指定目录的class文件或者jar包，规则和格式受限等。可以编写自定义加载器加载指定目录的文件或者文件格式可以不是class，自己写加密解密等
 
 1.继承ClassLoader抽象类
@@ -294,10 +290,12 @@ defineClass()需要先io读取file文件转成byte[].
     
 一个ClassLoader创建时如果没有指定parent，那么它的parent默认就是AppClassLoader。看源码构造默认给parent为SystemClassLoader。
  
-七。ContextClassLoader
+七 ContextClassLoader
 
 如Thread类中就有成员变量    private ClassLoader contextClassLoader;
 可以通过setContextClassLoader()设置
+
+八 Class
 
 
 ### 总结

@@ -39,7 +39,7 @@ tags: 技术
     如java.langObject,它存放在\jre\lib\rt.jar中,它是所有java类的父类,因此无论哪个类加载都要加载这个类,最终所有的加载请求都汇总到顶层的启动类加载器中,因此Object类会由启动类加载器来加载
 
 ### 源码研究
-一 Launcher
+#### 一 Launcher
 sun.misc.Launcher,它是一个java虚拟机的入口应用
 源码如下图1所示：
  ![图1](/images/posts/classLoader/1.png)  
@@ -54,7 +54,7 @@ sun.misc.Launcher,它是一个java虚拟机的入口应用
  
  3.后面的代码获取的是SecurityManager，这东西现在不清楚具体干啥，应该和安全，权限等有关
  
-二 SystemClassLoader
+#### 二 SystemClassLoader
  在很多源码中可以看到这句： systemClassLoader = ClassLoader.getSystemClassLoader();
  ![图2](/images/posts/classLoader/2.png)
  通过上面的分析，刚好知道getClassLoader的classLoader就是Launcher初始化中的AppClassLoader。
@@ -77,7 +77,7 @@ sun.misc.Launcher,它是一个java虚拟机的入口应用
       
    System.getProperty("java.class.path");获取classPath地址并用文件系统加载资源   
    
-三 ExtClassLoader
+#### 三 ExtClassLoader   
 ExtClassLoader默认是System.getProperty("java.ext.dirs");获取路径地址然后getExtDirs获取file文件资源，并提供getExtURLs等扩展加载资源功能
  
       static class ExtClassLoader extends URLClassLoader {
@@ -123,7 +123,7 @@ ExtClassLoader默认是System.getProperty("java.ext.dirs");获取路径地址然
             ...
       }
     
-四 ClassLoader的parent
+#### 四 ClassLoader的parent   
     自己编写的class是AppClassLoader加载的，int等是BootstrapClassLoader加载的。
    
     
@@ -171,7 +171,7 @@ AppClassLoader(URL[] var1, ClassLoader var2) 的var2就是ExtClassLoader并且�
 2.parent不是通过继承，而是组合来实现的   
 3.jvm和classpath两种形式的   
 
-五 ClassLoader
+#### 五 ClassLoader
 
 重要方法：
 1.Class<?> loadClass(String name)
@@ -269,12 +269,10 @@ AppClassLoader(URL[] var1, ClassLoader var2) 的var2就是ExtClassLoader并且�
             return c;
         }
      }
+     
 它能将class二进制内容转换成Class对象,其中核心方法是native,也就是JVM来实现二进制转成class
 
-
-
-   
-六 自定义ClassLoader   
+#### 六 自定义ClassLoader   
 源码有很多自己重写的ClassLoader,而且ClassLoader又局限性，只能加载指定目录的class文件或者jar包，规则和格式受限等。可以编写自定义加载器加载指定目录的文件或者文件格式可以不是class，自己写加密解密等
 
 1.继承ClassLoader抽象类
@@ -290,12 +288,12 @@ defineClass()需要先io读取file文件转成byte[].
     
 一个ClassLoader创建时如果没有指定parent，那么它的parent默认就是AppClassLoader。看源码构造默认给parent为SystemClassLoader。
  
-七 ContextClassLoader
+#### 七 ContextClassLoader
 
 如Thread类中就有成员变量    private ClassLoader contextClassLoader;
 可以通过setContextClassLoader()设置
 
-八 Class
+#### 八 Class
 
 
 ### 总结
@@ -305,4 +303,6 @@ defineClass()需要先io读取file文件转成byte[].
 
 3.JVM初始化sun.misc.Launcher并创建Extension ClassLoader和AppClassLoader实例。并将ExtClassLoader设置为AppClassLoader的父加载器。
 
-4.双亲委派。委托是从下向上，然后具体查找过程却是自上至下
+4.双亲委派。委托是从下向上，然后具体查找过程却是自上至下，可以通过classLoad的loadClass方法了解其过程
+
+5.自定义classLoader,重写findClass方法并运用defineClass()方法。不通过构造指定ClassLoader，默认parent是AppClassLoader

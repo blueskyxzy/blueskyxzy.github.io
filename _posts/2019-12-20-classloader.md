@@ -303,6 +303,6 @@ defineClass()需要先io读取file文件转成byte[].
 
 3.JVM初始化sun.misc.Launcher并创建Extension ClassLoader和AppClassLoader实例。并将ExtClassLoader设置为AppClassLoader的父加载器。
 
-4.双亲委派。委托是从下向上，然后具体查找过程却是自上至下，可以通过classLoad的loadClass方法了解其过程
+4.双亲委派。委托是从下向上，然后具体查找过程却是自上至下，可以通过classLoad的loadClass方法来体现其向上委托的过程
 
 5.自定义classLoader,重写findClass方法并运用defineClass()方法。不通过构造指定ClassLoader，默认parent是AppClassLoader

@@ -291,7 +291,24 @@ defineClass()需要先io读取file文件转成byte[].
 #### 七 ContextClassLoader
 
 如Thread类中就有成员变量    private ClassLoader contextClassLoader;
+
 可以通过setContextClassLoader()设置
+
+实际应用常用的代码：
+    
+    ClassLoader targetClassLoader = null;// 外部参数
+    ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    try {
+        Thread.currentThread().setContextClassLoader(targetClassLoader);
+        // TODO
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        Thread.currentThread().setContextClassLoader(contextClassLoader);
+    }
+    
+问题来了，为什么用有contextClassLoader？解决什么问题的？
+有些JVM核心代码必须动态加载由应用程序开发人员提供的资源时eg
 
 #### 八 Class
 

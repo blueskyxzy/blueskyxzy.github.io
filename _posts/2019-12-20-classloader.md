@@ -471,7 +471,7 @@ Class对象是jvm生成用来保存对应类的信息的
              return (T) obj;
          }            
 
-5. ReflectionData
+5.ReflectionData
 用于缓存数据,主要是延迟创建，并缓存数据   
 如果缓存不为空，很多方法直接获取缓存数据，没有一般就调本地方法获取并存入缓存
 

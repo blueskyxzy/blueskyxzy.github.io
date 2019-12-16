@@ -478,6 +478,38 @@ Class对象是jvm生成用来保存对应类的信息的
 SecurityManager是jvm提供的在应用层进行安全检查的机制，应用程序可以根据策略文件被赋予一定的权限
   
 例如是否可以读写文件，是否可以读写网络端口，是否可以读写内存，是否可以获取类加载器 
+    
+java.security.AllPermission   所有权限的集合
+
+java.util.PropertyPermission   系统/环境属性权限
+
+java.lang.RuntimePermission   运行时权限
+
+java.net.SocketPermission   Socket权限
+
+java.io.FilePermission   文件权限,包括读写,删除,执行
+
+java.io.SerializablePermission   序列化权限
+
+java.lang.reflect.ReflectPermission   反射权限
+
+java.security.UnresolvedPermission   未解析的权限
+
+java.net.NetPermission   网络权限
+
+java.awt.AWTPermission   AWT权限
+
+java.sql.SQLPermission   数据库sql权限
+
+java.security.SecurityPermission   安全控制方面的权限
+
+java.util.logging.LoggingPermission   日志控制权限
+
+javax.net.ssl.SSLPermission   安全连接权限
+
+javax.security.auth.AuthPermission   认证权限
+
+javax.sound.sampled.AudioPermission  音频系统资源的访问权限
 
 
 ### 总结

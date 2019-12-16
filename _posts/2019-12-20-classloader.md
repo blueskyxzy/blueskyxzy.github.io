@@ -470,7 +470,39 @@ Class对象是jvm生成用来保存对应类的信息的
                  throw new ClassCastException(cannotCastMsg(obj));
              return (T) obj;
          }            
-   
+
+5. ReflectionData
+用于缓存数据,主要是延迟创建，并缓存数据   
+如果缓存不为空，很多方法直接获取缓存数据，没有一般就调本地方法获取并存入缓存
+
+
+     /**
+       * Reflection support.
+       */
+  
+      // Caches for certain reflective results
+      private static boolean useCaches = true;
+  
+      // reflection data that might get invalidated when JVM TI RedefineClasses() is called
+      private static class ReflectionData<T> {
+          volatile Field[] declaredFields;
+          volatile Field[] publicFields;
+          volatile Method[] declaredMethods;
+          volatile Method[] publicMethods;
+          volatile Constructor<T>[] declaredConstructors;
+          volatile Constructor<T>[] publicConstructors;
+          // Intermediate results for getFields and getMethods
+          volatile Field[] declaredPublicFields;
+          volatile Method[] declaredPublicMethods;
+          volatile Class<?>[] interfaces;
+  
+          // Value of classRedefinedCount when we created this ReflectionData instance
+          final int redefinedCount;
+  
+          ReflectionData(int redefinedCount) {
+              this.redefinedCount = redefinedCount;
+          }
+      }   
     
 #### 九 SecurityManager
 源码很多地方用到SecurityManager   

@@ -76,7 +76,7 @@ sun.misc.Launcher,它是一个java虚拟机的入口应用
       }
       
    System.getProperty("java.class.path");获取classPath地址并用文件系统加载资源   
-   
+                                                      
 #### 三 ExtClassLoader   
 ExtClassLoader默认是System.getProperty("java.ext.dirs");获取路径地址然后getExtDirs获取file文件资源，并提供getExtURLs等扩展加载资源功能
  
@@ -307,10 +307,177 @@ defineClass()需要先io读取file文件转成byte[].
         Thread.currentThread().setContextClassLoader(contextClassLoader);
     }
     
-问题来了，为什么用有contextClassLoader？解决什么问题的？
-有些JVM核心代码必须动态加载由应用程序开发人员提供的资源时eg
-
+问题来了，为什么用有contextClassLoader？解决什么问题的？   
+  有些JVM核心代码必须动态加载由应用程序开发人员提供的资源时.   
+  如JAX和rt.jar 因为是两个加载器加载的 那么BootStrap需要加载Ext的资源,怎么办? 这不是与委托机制相反了吗? 所以就不能只依赖委派双亲模式,那么怎么做   
+  如如下是单向的，右边的ClassLoader所加载的代码需要反过来去找委派链靠左边的ClassLoader去加载东西怎么办？   
+      ClassLoader A -> System class loader -> Extension class loader -> Bootstrap class loader    
+  这种情况下就可以把某个位于委派链左边的ClassLoader设置为线程的context class loader，这样就给机会让代码不受parent delegation的委派方向的限制而加载到类了   
+  
+  如JNDI， Java 命名和目录接口（Java Naming and Directory Interface，JNDI）   
+  它的核心内容在rt.jar中的引导类中实现了，但是这些JNDI核心类可能加载由独立厂商实现和部署在应用程序的classpath中的JNDI提供者。   
+  这个场景要求一个父类加载器（这个例子中的原始类加载器，即加载rt.jar的加载器）去加载一个在它的子类加载器（系统类加载器）中可见的类。此时通常的J2SE委托机制不能工作，   
+  解决办法是让JNDI核心类使用线程上下文加载器，从而有效建立一条与类加载器层次结构相反方向的“通道”达到正确的委托   
+  
 #### 八 Class
+java中有两种对象：实例对象和Class对象   
+Class对象是jvm生成用来保存对应类的信息的   
+
+方法  生成实例：forName newInstance, 获取类信息：getDeclaredAnnotations,getDeclaredFields,getDeclaredMethods 类型转换：asSubClass,cast
+1.forName 
+静态方法，常用Class.forName(");实际调用的都是native方法。反射获取class对象
+
+2.newInstance
+
+    @CallerSensitive
+        public T newInstance()
+            throws InstantiationException, IllegalAccessException
+        {
+            if (System.getSecurityManager() != null) {
+                checkMemberAccess(Member.PUBLIC, Reflection.getCallerClass(), false);
+            }
+    
+            // NOTE: the following code may not be strictly correct under
+            // the current Java memory model.
+    
+            // Constructor lookup
+            if (cachedConstructor == null) {
+                if (this == Class.class) {
+                    throw new IllegalAccessException(
+                        "Can not call newInstance() on the Class for java.lang.Class"
+                    );
+                }
+                try {
+                    Class<?>[] empty = {};
+                    final Constructor<T> c = getConstructor0(empty, Member.DECLARED);
+                    // Disable accessibility checks on the constructor
+                    // since we have to do the security check here anyway
+                    // (the stack depth is wrong for the Constructor's
+                    // security check to work)
+                    java.security.AccessController.doPrivileged(
+                        new java.security.PrivilegedAction<Void>() {
+                            public Void run() {
+                                    c.setAccessible(true);
+                                    return null;
+                                }
+                            });
+                    cachedConstructor = c;
+                } catch (NoSuchMethodException e) {
+                    throw (InstantiationException)
+                        new InstantiationException(getName()).initCause(e);
+                }
+            }
+            Constructor<T> tmpConstructor = cachedConstructor;
+            // Security check (same as in java.lang.reflect.Constructor)
+            int modifiers = tmpConstructor.getModifiers();
+            if (!Reflection.quickCheckMemberAccess(this, modifiers)) {
+                Class<?> caller = Reflection.getCallerClass();
+                if (newInstanceCallerCache != caller) {
+                    Reflection.ensureMemberAccess(caller, this, null, modifiers);
+                    newInstanceCallerCache = caller;
+                }
+            }
+            // Run constructor
+            try {
+                return tmpConstructor.newInstance((Object[])null);
+            } catch (InvocationTargetException e) {
+                Unsafe.getUnsafe().throwException(e.getTargetException());
+                // Not reached
+                return null;
+            }
+        }
+        private volatile transient Constructor<T> cachedConstructor;
+        private volatile transient Class<?>       newInstanceCallerCache;
+   
+  看源码，本质上是获取的类的无参构造方法，然后执行无参构造方法来生成实例。
+  
+  1.检查访问权限
+  
+  2.检查是否有已经缓存过的构造器,没有则通过获取该类已经声明的的无参构造方法获取并保存缓存构造器中
+  
+  3.使用类的构造方法来生成实例
+  
+3.getDeclaredMethods
+这里看下getDeclaredMethods源码，getDeclaredFields同理
+
+    @CallerSensitive
+    public Method[] getDeclaredMethods() throws SecurityException {
+        checkMemberAccess(Member.DECLARED, Reflection.getCallerClass(), true);
+        return copyMethods(privateGetDeclaredMethods(false));
+    }
+   
+   
+     private static Method[] copyMethods(Method[] arg) {
+           Method[] out = new Method[arg.length];
+           ReflectionFactory fact = getReflectionFactory();
+           for (int i = 0; i < arg.length; i++) {
+               out[i] = fact.copyMethod(arg[i]);
+           }
+           return out;
+       }
+       
+      //
+         //
+         // java.lang.reflect.Method handling
+         //
+         //
+     
+         // Returns an array of "root" methods. These Method objects must NOT
+         // be propagated to the outside world, but must instead be copied
+         // via ReflectionFactory.copyMethod.
+         private Method[] privateGetDeclaredMethods(boolean publicOnly) {
+             checkInitted();
+             Method[] res;
+             ReflectionData<T> rd = reflectionData();
+             if (rd != null) {
+                 res = publicOnly ? rd.declaredPublicMethods : rd.declaredMethods;
+                 if (res != null) return res;
+             }
+             // No cached value available; request value from VM
+             res = Reflection.filterMethods(this, getDeclaredMethods0(publicOnly));
+             if (rd != null) {
+                 if (publicOnly) {
+                     rd.declaredPublicMethods = res;
+                 } else {
+                     rd.declaredMethods = res;
+                 }
+             }
+             return res;
+         }
+   
+   1. 还在最先权限检查
+   2. 核心是 private native Method[]      getDeclaredMethods0(boolean publicOnly);获取methods
+   3. 然后是copyMethod，调的是反射的copyMethod，实质是调的实现Method.copyMethod() ，   
+   Method res = new Method(clazz, name, parameterTypes, returnType,exceptionTypes, modifiers, slot, signature,annotations, parameterAnnotations, annotationDefault);    
+   构造复制一个相同的method.   
+   之所以需要拷贝可能是因为不想让获取的方法被随意修改
+
+4.asSubclass,cast
+    asSubclass转成子类
+    
+        @SuppressWarnings("unchecked")
+        public <U> Class<? extends U> asSubclass(Class<U> clazz) {
+            if (clazz.isAssignableFrom(this))
+                return (Class<? extends U>) this;
+            else
+                throw new ClassCastException(this.toString());
+        }
+        
+        
+         @SuppressWarnings("unchecked")
+         public T cast(Object obj) {
+             if (obj != null && !isInstance(obj))
+                 throw new ClassCastException(cannotCastMsg(obj));
+             return (T) obj;
+         }            
+   
+    
+#### 九 SecurityManager
+源码很多地方用到SecurityManager   
+
+SecurityManager是jvm提供的在应用层进行安全检查的机制，应用程序可以根据策略文件被赋予一定的权限
+  
+例如是否可以读写文件，是否可以读写网络端口，是否可以读写内存，是否可以获取类加载器 
 
 
 ### 总结

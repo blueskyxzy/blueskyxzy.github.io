@@ -30,12 +30,7 @@ SqlSession获取MapperProxy代理对象接口，动态代理对象MapperProxy，
 
 模拟的只是大致流程，扩展性不强，很多功能不支持。
 
-### 源码分析
-mybatis源码   
-版本：3.4.2   
-作者：Clinton Begin  网上意外发现这名开发者现在已经加入了拳头游戏了
-
-#### 1.框架结构
+### 框架结构
    ![mybatis框架图](/images/posts/mybatis/mybatis001.png)  
    
     org.apache.ibatis.annotations  自定义的注解包。如@Param
@@ -59,8 +54,13 @@ mybatis源码
     org.apache.ibatis.session    核心包，sqlSession功能。获取Mapper,管理事务，执行sql等
     org.apache.ibatis.transaction  事务。包装数据库连接，处理连接生命周期
     org.apache.ibatis.type   类型处理器。包括数据库类型对应java类型，可自定义类型处理器
-    
-#### 2.测试demo
+ 
+### 源码分析
+mybatis源码   
+版本：3.4.2   
+作者：Clinton Begin  网上意外发现这名开发者现在已经加入了拳头游戏了
+   
+#### 1.测试demo
 
         // 获取Mybatis的配置文件，内部通过ClassLoader加载文件流
         InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");
@@ -90,7 +90,7 @@ mybatis源码
         session.commit();
         //关闭资源
         session.close();
-#### 3.类加载器获取io
+#### 2.类加载器获取io
 io包中封装的Resources，Resource中有静态变量 private static ClassLoaderWrapper classLoaderWrapper = new ClassLoaderWrapper();
 
     // 自定义的ClassLoaderWrapper，相当于类加载的装饰器，并完成其方法的封装，如getResourceAsStream方法，默认取的是系统类加载器
@@ -102,7 +102,7 @@ io包中封装的Resources，Resource中有静态变量 private static ClassLoad
       }
     }
     
-#### 4.初始化配置
+#### 3.初始化配置
     初始化mybatis-config.xml和UserDao.xml配置:
    
     public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
@@ -366,7 +366,7 @@ io包中封装的Resources，Resource中有静态变量 private static ClassLoad
   。。。
   这样我们的sqlSessionFactory就已经build了configration对象信息完成了初始化
   
-#### 5.代理
+#### 4.代理
     上面获取的SqlSessionFactory默认是DefaultSqlSessionFactory，并已经完成了configuration的初始化
     public SqlSessionFactory build(Configuration config) {
     return new DefaultSqlSessionFactory(config);
@@ -544,7 +544,7 @@ io包中封装的Resources，Resource中有静态变量 private static ClassLoad
       }
       
  
-#### 6.执行器执行SQL并封装返回
+#### 5.执行器执行SQL并封装返回
      
       这里是构建sqlSession前，实例化执行器。
       public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
@@ -810,3 +810,7 @@ io包中封装的Resources，Resource中有静态变量 private static ClassLoad
     
 ### 用到的设计模式 
 单例模式，工厂模式，创建者模式，装饰器模式，代理模式，模板方法模式，策略模式
+
+设计模式的使用使代码更加规范，扩展性更强。   
+学习其他框架源码也更加得心应手，以后也更容易看懂大佬写的代码，实现从 看懂 -> 自己会写 ->创新 这个成为大佬的过程
+

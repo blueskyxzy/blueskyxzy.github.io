@@ -1,6 +1,6 @@
 ---
 layout: post
-title: mybatis原理和源码研究
+title: mybatis源码研究
 date: 2020-01-01
 tags: 技术    
 ---
@@ -31,11 +31,11 @@ SqlSession获取MapperProxy代理对象接口，动态代理对象MapperProxy，
 模拟的只是大致流程，扩展性不强，很多功能不支持。
 
 ### 源码分析
-mybatis源码
-版本：3.4.2
+mybatis源码   
+版本：3.4.2   
 作者：Clinton Begin  网上意外发现这名开发者现在已经加入了拳头游戏了
 
-####1.框架结构
+#### 1.框架结构
    ![mybatis框架图](/images/posts/mybatis/mybatis001.png)  
    
     org.apache.ibatis.annotations  自定义的注解包。如@Param
@@ -60,7 +60,7 @@ mybatis源码
     org.apache.ibatis.transaction  事务。包装数据库连接，处理连接生命周期
     org.apache.ibatis.type   类型处理器。包括数据库类型对应java类型，可自定义类型处理器
     
-####2.测试demo
+#### 2.测试demo
 
         // 获取Mybatis的配置文件，内部通过ClassLoader加载文件流
         InputStream resourceAsStream = Resources.getResourceAsStream("mybatis-config.xml");

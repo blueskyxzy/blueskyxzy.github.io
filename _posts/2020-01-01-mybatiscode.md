@@ -358,12 +358,12 @@ io包中封装的Resources，Resource中有静态变量 private static ClassLoad
     ![configuration1](/images/posts/mybatis/mybatis002.png)  
     ![configuration2](/images/posts/mybatis/mybatis003.png)  
   
-  可以看到
-  environment属性已经存入了datasource等数据库配置信息
-  mappedStatement属性存了sql和执行方的方法名的map信息
-  sqlFragments存放sql查询的元素
-  resultMaps存放resultMap的map信息
-  。。。
+  可以看到   
+  environment属性已经存入了datasource等数据库配置信息   
+  mappedStatement属性存了sql和执行方的方法名的map信息   
+  sqlFragments存放sql查询的元素   
+  resultMaps存放resultMap的map信息   
+  。。。   
   这样我们的sqlSessionFactory就已经build了configration对象信息完成了初始化
   
 #### 4.代理

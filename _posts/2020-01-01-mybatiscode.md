@@ -814,7 +814,7 @@ io包中封装的Resources，Resource中有静态变量 private static ClassLoad
 设计模式的使用使代码更加规范，扩展性更强。   
 学习其他框架源码也更加得心应手，以后也更容易看懂大佬写的代码，实现从 看懂 -> 自己会写 ->创新 这个成为大佬的过程
 
-#### 单例模式
+#### 1.单例模式
 ErrorContext，LogFactory
 
 ErrorContext 错误上下文，记录该线程的执行环境错误信息   
@@ -848,7 +848,7 @@ ErrorContext 错误上下文，记录该线程的执行环境错误信息
     }
     
 
-#### 工厂模式
+#### 2.工厂模式
 SqlSessionFactory、ObjectFactory、MapperProxyFactory， DataSourceFactory， ExceptionFactory等
 
 SqlSessionFactory和SqlSessionFactoryBuilder完成框架中常见的构建模式构建工厂   
@@ -870,7 +870,7 @@ ExceptionFactory，可通过wrapException方法创建PersistenceException，并�
     
     }
 
-#### 创建者模式 
+#### 3.创建者模式 
 SqlSessionFactoryBuilder, BaseBuilder , XMLConfigBuilder, XMLMapperBuilder, XMLStatementBuilder, CacheBuilder等
 
 Builder就太多了，很多类都包含着其他的类来完成初始化，因此可以创建多个Builder
@@ -878,7 +878,7 @@ Builder就太多了，很多类都包含着其他的类来完成初始化，因�
 如BaseBuilder , XMLConfigBuilder, XMLMapperBuilder, XMLStatementBuilder这些Builder会读取文件或者配置，然后做大量的XpathParser解析、配置或语法的解析、反射生成对象、存入结果缓存等步骤
 
 
-#### 装饰器模式
+#### 4.装饰器模式
 cache包中的cache.decorators中的各个装饰者，TransactionalCache等
 
 装饰器特征是包装原类，构造初始化，调用原方法进行方法增强   
@@ -918,7 +918,7 @@ mybatis缓存分为一级缓存和二级缓存
 
 二级缓存对象的默认类型为PerpetualCache，如果配置的缓存是默认类型，则mybatis会根据配置自动追加一系列装饰器。
 
-#### 代理模式
+#### 5.代理模式
 Mybatis实现的核心，完成了面向接口的编程，比如MapperProxy、ConnectionLogger，用的jdk的动态代理；   
 还有executor.loader包使用了cglib或者javassist达到延迟加载的效果
 
@@ -953,7 +953,7 @@ Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInt
     }
   
   }
-#### 模板方法模式
+#### 6.模板方法模式
 BaseExecutor和SimpleExecutor，BaseTypeHandler和所有的子类例如IntegerTypeHandler；
 
 模板方法就像Servlet的service定义doGet和doPost一样，把一个方法中的一些功能抽象出来，交给子类来实现，
@@ -984,7 +984,7 @@ BaseExecutor和SimpleExecutor，BaseTypeHandler和所有的子类例如IntegerTy
      。。。。。。
 
 
-#### 适配器模式
+#### 7.适配器模式
 Log的Mybatis接口和它对jdbc、log4j等各种日志框架的适配实现
 
 适配器模式的目的是不修改原类的代码，封装一个可以调用老类完成新功能的新适配器类   
@@ -993,7 +993,7 @@ Log的Mybatis接口和它对jdbc、log4j等各种日志框架的适配实现
 如Log4jImpl用了org.apache.ibatis.logging.Log，通过构造组合的方式来初始化，并封装其log等方法，扩展为error,debug等方法
 
 
-#### 组合模式
+#### 8.组合模式
 SqlNode和各个子类ChooseSqlNode， IfSqlNode，TextSqlNode
 
 组合模式可统一处理层级结构，树形结构等。如目录和各类文件夹
@@ -1086,7 +1086,8 @@ TextSqlNode
       }
       ......
     }   
-#### 迭代器模式
+    
+#### 9.迭代器模式
 PropertyTokenizer等
 
 迭代器用于容器的遍历，同时不暴露内部细节

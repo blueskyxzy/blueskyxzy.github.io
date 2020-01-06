@@ -41,12 +41,12 @@ SqlSession获取MapperProxy代理对象接口，动态代理对象MapperProxy，
     org.apache.ibatis.datasource  数据源。如jndi数据源和连接池 
     org.apache.ibatis.executor  执行器。sql执行器，缓存执行器，错误上下文跟踪所有执行流程
     org.apache.ibatis.io   io包。读取资源文件
-    org.apache.ibatis.javassist   
+    org.apache.ibatis.javassist   javassist包
     org.apache.ibatis.jdbc    jdbc包。包括JDBC,ScriptRunner脚本执行等
     org.apache.ibatis.lang    @UsesJava7 @UsesJava8注解，用于识别哪些可以使用JDK7或8的api
     org.apache.ibatis.logging  日志包。多种日志框架的对接，如实现debug模式下输出SQL
     org.apache.ibatis.mapping  映射包。配置文件和对象映射
-    org.apache.ibatis.ognl   
+    org.apache.ibatis.ognl   ognl包
     org.apache.ibatis.parsing   解析工具包。XPathParser通过XPath解析XML，PropertyParser解析properties,GenericTokenParser解析# &等占位符
     org.apache.ibatis.plugin    拦截器插件
     org.apache.ibatis.reflection  反射器。把Java对象转换成元数据MetaObject,数据库查询结果到元数据的映射就是通过元对象实现的
@@ -809,8 +809,341 @@ io包中封装的Resources，Resource中有静态变量 private static ClassLoad
 到此看完了查询SQL的源码过程,insert,update等类似 
     
 ### 用到的设计模式 
-单例模式，工厂模式，创建者模式，装饰器模式，代理模式，模板方法模式，策略模式
+单例模式，工厂模式，创建者模式，装饰器模式，代理模式，模板方法模式，适配器模式，组合模式，迭代器模式
 
 设计模式的使用使代码更加规范，扩展性更强。   
 学习其他框架源码也更加得心应手，以后也更容易看懂大佬写的代码，实现从 看懂 -> 自己会写 ->创新 这个成为大佬的过程
+
+#### 单例模式
+ErrorContext，LogFactory
+
+ErrorContext 错误上下文，记录该线程的执行环境错误信息   
+其单例模式是懒汉式写法，需要注意的是用了ThreadLocal，说明每个线程都有自己的一个ErrorContext
+
+    public class ErrorContext {
+    
+      private static final String LINE_SEPARATOR = System.getProperty("line.separator","\n");
+      private static final ThreadLocal<ErrorContext> LOCAL = new ThreadLocal<ErrorContext>();
+    
+      private ErrorContext stored;
+      private String resource;
+      private String activity;
+      private String object;
+      private String message;
+      private String sql;
+      private Throwable cause;
+    
+      private ErrorContext() {
+      }
+    
+      public static ErrorContext instance() {
+        ErrorContext context = LOCAL.get();
+        if (context == null) {
+          context = new ErrorContext();
+          LOCAL.set(context);
+        }
+        return context;
+      }
+      ...
+    }
+    
+
+#### 工厂模式
+SqlSessionFactory、ObjectFactory、MapperProxyFactory， DataSourceFactory， ExceptionFactory等
+
+SqlSessionFactory和SqlSessionFactoryBuilder完成框架中常见的构建模式构建工厂   
+SqlSessionFactory接口有DefaultSqlSessionFactory等实现来new DefaultSqlSession,是类似于抽象工厂的实现DefaultSqlSession是具体产品，DefaultSqlSessionFactory具体产品工厂
+
+MapperProxyFactory通过newInstance创建代理
+
+ExceptionFactory，可通过wrapException方法创建PersistenceException，并传入到错误上下文
+
+    public class ExceptionFactory {
+    
+      private ExceptionFactory() {
+        // Prevent Instantiation
+      }
+    
+      public static RuntimeException wrapException(String message, Exception e) {
+        return new PersistenceException(ErrorContext.instance().message(message).cause(e).toString(), e);
+      }
+    
+    }
+
+#### 创建者模式 
+SqlSessionFactoryBuilder, BaseBuilder , XMLConfigBuilder, XMLMapperBuilder, XMLStatementBuilder, CacheBuilder等
+
+Builder就太多了，很多类都包含着其他的类来完成初始化，因此可以创建多个Builder
+
+如BaseBuilder , XMLConfigBuilder, XMLMapperBuilder, XMLStatementBuilder这些Builder会读取文件或者配置，然后做大量的XpathParser解析、配置或语法的解析、反射生成对象、存入结果缓存等步骤
+
+
+#### 装饰器模式
+cache包中的cache.decorators中的各个装饰者，TransactionalCache等
+
+装饰器特征是包装原类，构造初始化，调用原方法进行方法增强   
+
+如下LoggingCache，通过构造初始化获取Cache的实现，就可以调用其实现。
+
+    public class LoggingCache implements Cache {
+    
+      private Log log;  
+      private Cache delegate;
+      protected int requests = 0;
+      protected int hits = 0;
+    
+      public LoggingCache(Cache delegate) {
+        this.delegate = delegate;
+        this.log = LogFactory.getLog(getId());
+      }
+    
+      @Override
+      public String getId() {
+        return delegate.getId();
+      }
+    
+      @Override
+      public int getSize() {
+        return delegate.getSize();
+      }
+     。。。。。。
+     
+     }
+
+mybatis缓存分为一级缓存和二级缓存
+
+一级缓存，又叫本地缓存，是PerpetualCache类型的永久缓存，保存在执行器中（BaseExecutor），而执行器又在SqlSession（DefaultSqlSession）中，所以一级缓存的生命周期与SqlSession是相同的。
+
+二级缓存，又叫自定义缓存，实现了Cache接口的类都可以作为二级缓存，所以可配置如encache等的第三方缓存。二级缓存以namespace名称空间为其唯一标识，被保存在Configuration核心配置对象中。
+
+二级缓存对象的默认类型为PerpetualCache，如果配置的缓存是默认类型，则mybatis会根据配置自动追加一系列装饰器。
+
+#### 代理模式
+Mybatis实现的核心，完成了面向接口的编程，比如MapperProxy、ConnectionLogger，用的jdk的动态代理；   
+还有executor.loader包使用了cglib或者javassist达到延迟加载的效果
+
+Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy)利用了java的动态代理技术
+
+
+    public class MapperProxyFactory<T> {
+  
+    private final Class<T> mapperInterface;
+    private final Map<Method, MapperMethod> methodCache = new ConcurrentHashMap<Method, MapperMethod>();
+  
+    public MapperProxyFactory(Class<T> mapperInterface) {
+      this.mapperInterface = mapperInterface;
+    }
+  
+    public Class<T> getMapperInterface() {
+      return mapperInterface;
+    }
+  
+    public Map<Method, MapperMethod> getMethodCache() {
+      return methodCache;
+    }
+  
+    @SuppressWarnings("unchecked")
+    protected T newInstance(MapperProxy<T> mapperProxy) {
+      return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
+    }
+  
+    public T newInstance(SqlSession sqlSession) {
+      final MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);
+      return newInstance(mapperProxy);
+    }
+  
+  }
+#### 模板方法模式
+BaseExecutor和SimpleExecutor，BaseTypeHandler和所有的子类例如IntegerTypeHandler；
+
+模板方法就像Servlet的service定义doGet和doPost一样，把一个方法中的一些功能抽象出来，交给子类来实现，
+
+如下面BaseExecutor的代码，将doQuery分离出来交给SimpleExecutor等子类实现
+
+    public abstract class BaseExecutor implements Executor
+     
+       protected abstract <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql)
+           throws SQLException;
+     。。。。。。
+     
+     private <E> List<E> queryFromDatabase(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
+       List<E> list;
+       localCache.putObject(key, EXECUTION_PLACEHOLDER);
+       try {
+         list = doQuery(ms, parameter, rowBounds, resultHandler, boundSql);
+       } finally {
+         localCache.removeObject(key);
+       }
+       localCache.putObject(key, list);
+       if (ms.getStatementType() == StatementType.CALLABLE) {
+         localOutputParameterCache.putObject(key, parameter);
+       }
+       return list;
+     }
+     
+     。。。。。。
+
+
+#### 适配器模式
+Log的Mybatis接口和它对jdbc、log4j等各种日志框架的适配实现
+
+适配器模式的目的是不修改原类的代码，封装一个可以调用老类完成新功能的新适配器类   
+所以第三方包无法修改，又需要使用时可以通过该适配器来封装
+
+如Log4jImpl用了org.apache.ibatis.logging.Log，通过构造组合的方式来初始化，并封装其log等方法，扩展为error,debug等方法
+
+
+#### 组合模式
+SqlNode和各个子类ChooseSqlNode， IfSqlNode，TextSqlNode
+
+组合模式可统一处理层级结构，树形结构等。如目录和各类文件夹
+
+mybatis的xml有自己的语法，如if, choose, trim等结构，根据条件来生成不同情况下的SQL
+
+SqlNode接口，子类是ChooseSqlNode，IfSqlNode，TextSqlNode等类
+
+    public interface SqlNode {
+      boolean apply(DynamicContext context);
+    }
+    
+如下IfSqlNode代码，就需要先做判断，如果判断通过，仍然会调用子元素的SqlNode，即contents.apply方法，实现递归的解析
+
+    public class IfSqlNode implements SqlNode {
+      private ExpressionEvaluator evaluator;
+      private String test;
+      private SqlNode contents;
+    
+      public IfSqlNode(SqlNode contents, String test) {
+        this.test = test;
+        this.contents = contents;
+        this.evaluator = new ExpressionEvaluator();
+      }
+    
+      @Override
+      public boolean apply(DynamicContext context) {
+        if (evaluator.evaluateBoolean(test, context.getBindings())) {
+          contents.apply(context);
+          return true;
+        }
+        return false;
+      }
+    
+    }
+
+ChooseSqlNode，
+
+    public class ChooseSqlNode implements SqlNode {
+      private SqlNode defaultSqlNode;
+      private List<SqlNode> ifSqlNodes;
+    
+      public ChooseSqlNode(List<SqlNode> ifSqlNodes, SqlNode defaultSqlNode) {
+        this.ifSqlNodes = ifSqlNodes;
+        this.defaultSqlNode = defaultSqlNode;
+      }
+    
+      @Override
+      public boolean apply(DynamicContext context) {
+        for (SqlNode sqlNode : ifSqlNodes) {
+          if (sqlNode.apply(context)) {
+            return true;
+          }
+        }
+        if (defaultSqlNode != null) {
+          defaultSqlNode.apply(context);
+          return true;
+        }
+        return false;
+      }
+    }
+ 
+TextSqlNode
+
+    public class TextSqlNode implements SqlNode {
+      private String text;
+      private Pattern injectionFilter;
+    
+      public TextSqlNode(String text) {
+        this(text, null);
+      }
+      
+      public TextSqlNode(String text, Pattern injectionFilter) {
+        this.text = text;
+        this.injectionFilter = injectionFilter;
+      }
+      
+      public boolean isDynamic() {
+        DynamicCheckerTokenParser checker = new DynamicCheckerTokenParser();
+        GenericTokenParser parser = createParser(checker);
+        parser.parse(text);
+        return checker.isDynamic();
+      }
+    
+      @Override
+      public boolean apply(DynamicContext context) {
+        GenericTokenParser parser = createParser(new BindingTokenParser(context, injectionFilter));
+        context.appendSql(parser.parse(text));
+        return true;
+      }
+      ......
+    }   
+#### 迭代器模式
+PropertyTokenizer等
+
+迭代器用于容器的遍历，同时不暴露内部细节
+
+    public class PropertyTokenizer implements Iterator<PropertyTokenizer> {
+      private String name;
+      private String indexedName;
+      private String index;
+      private String children;
+    
+      public PropertyTokenizer(String fullname) {
+        int delim = fullname.indexOf('.');
+        if (delim > -1) {
+          name = fullname.substring(0, delim);
+          children = fullname.substring(delim + 1);
+        } else {
+          name = fullname;
+          children = null;
+        }
+        indexedName = name;
+        delim = name.indexOf('[');
+        if (delim > -1) {
+          index = name.substring(delim + 1, name.length() - 1);
+          name = name.substring(0, delim);
+        }
+      }
+    
+      public String getName() {
+        return name;
+      }
+    
+      public String getIndex() {
+        return index;
+      }
+    
+      public String getIndexedName() {
+        return indexedName;
+      }
+    
+      public String getChildren() {
+        return children;
+      }
+    
+      @Override
+      public boolean hasNext() {
+        return children != null;
+      }
+    
+      @Override
+      public PropertyTokenizer next() {
+        return new PropertyTokenizer(children);
+      }
+    
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException("Remove is not supported, as it has no meaning in the context of properties.");
+      }
+    }
+
 

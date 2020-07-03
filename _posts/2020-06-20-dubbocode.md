@@ -43,21 +43,23 @@ Monitor这是一个监控，图中虚线表明Consumer 和Provider通过异步�
 Monitor在整个架构中是可选的（图中的虚线并不是可选的意思），Monitor功能需要单独配置，不配置或者配置以后，Monitor挂掉并不会影响服务的调用。
 
 ### Java中SPI机制
-服务发现机制 就是一个“基于接口的编程＋策略模式＋配置文件”组合实现的动态加载机制。
-
-为某个接口寻找服务实现的机制。有点类似IOC的思想，就是将装配的控制权移到程序之外。解耦合，延迟加载
-
-ServiceLoader 来加载配置文件中指定的实现，ServiceLoader可以跨越jar包获取META-INF下的配置文件，通过反射方法Class.forName()加载类对象，instance()方法将类实例化。把实例化后的类缓存到providers对象中
-
+服务发现机制 就是一个“基于接口的编程＋策略模式＋配置文件”组合实现的动态加载机制。  
+为某个接口寻找服务实现的机制。有点类似IOC的思想，就是将装配的控制权移到程序之外。解耦合，延迟加载  
+ServiceLoader 来加载配置文件中指定的实现，ServiceLoader可以跨越jar包获取META-INF下的配置文件，通过反射方法Class.forName()加载类对象，instance()方法将类实例化。把实例化后的类缓存到providers对象中  
 SPI的方式使得源框架，不必关心接口的实现类的路径。如import 导入实现类，反射Class.forName("com.mysql.jdbc.Driver")
 
-dubbo中也有用到，Dubbo 并未使用 Java 原生的 SPI 机制，而是对其进行了增强。Dubbo SPI 是通过键值对的方式进行配置，这样我们可以按需加载指定的实现类
-
-很多拓展都是通过 SPI 机制进行加载的，比如 Protocol、Cluster、LoadBalance.
-
-dubbo自适应拓展机制,并不想在框架启动阶段被加载，而是希望在拓展方法被调用时，根据运行时参数进行加载。首先 Dubbo 会为拓展接口生成具有代理功能的代码。然后通过 javassist 或 jdk 编译这段代码，得到 Class 类。最后再通过反射创建代理类，
-
+dubbo中也有用到，Dubbo 并未使用 Java 原生的 SPI 机制，而是对其进行了增强。Dubbo SPI 是通过键值对的方式进行配置，这样我们可以按需加载指定的实现类  
+很多拓展都是通过 SPI 机制进行加载的，比如 Protocol、Cluster、LoadBalance.  
+dubbo自适应拓展机制,并不想在框架启动阶段被加载，而是希望在拓展方法被调用时，根据运行时参数进行加载。首先 Dubbo 会为拓展接口生成具有代理功能的代码。然后通过 javassist 或 jdk 编译这段代码，得到 Class 类。最后再通过反射创建代理类，  
 表现就是传统的代理逻辑不同，所代理的对象是在 makeWheel 方法中通过 SPI 加载得到
+
+这种机制类似于Spring中也有一种类似与Java SPI的加载机制Starter
+
+RPC 协议扩展，封装远程调用细节。   
+org.apache.dubbo.rpc.Protocol  
+org.apache.dubbo.rpc.Exporter  
+org.apache.dubbo.rpc.Invoker  
+  
 ### 官网给的架构
 
  ![dubbo framework](/images/posts/dubbo/dubbo-framework.jpg)  
@@ -94,6 +96,14 @@ dubbo自适应拓展机制,并不想在框架启动阶段被加载，而是希�
 * dubbo-config 配置模块：是 Dubbo 对外的 API，用户通过 Config 使用Dubbo，隐藏 Dubbo 所有细节。
 * dubbo-container 容器模块：是一个 Standlone 的容器，以简单的 Main 加载 Spring 启动，因为服务通常不需要 Tomcat/JBoss 等 Web 容器的特性，没必要用 Web 容器去加载服务。
 
+Dubbo 服务调用过程   
+
+ ![dubbo framework](/images/posts/dubbo/send-request-process.jpg)  
+ 
+首先服务消费者通过代理对象 Proxy 发起远程调用，接着通过网络客户端 Client 将编码后的请求发送给服务提供方的网络层上，也就是 Server。  
+Server 在收到请求后，首先要做的事情是对数据包进行解码。然后将解码后的请求发送至分发器 Dispatcher，再由分发器将请求派发到指定的线程池上，  
+最后由线程池调用具体的服务。这就是一个远程调用请求的发送与接收过程。至于响应的发送与接收过程，这张图中没有表现出来
+
 ### 源码
 网上主要是总结性的流程，知道个概念，要看明白还是要靠看源码
 
@@ -101,8 +111,52 @@ dubbo源码的知识点总结：
 集群容错， 服务发布原理，服务引用， 服务暴露
 Directory， Invoker， router，LoadBalance，cluster，Exporter
 
-Invoker是从代理抽象处理的调用接口，可由代理工厂接口ProxyFactory的实现创建，如javassistProxyFactory,这里用Javassist动态字节码技术做代理
+Invoker  
+具有远程调用功能的对象  
+Invoker是从代理抽象处理的调用接口，可由代理工厂接口ProxyFactory的实现创建，如javassistProxyFactory,这里用Javassist动态字节码技术做代理  
+在这里分消费者Invoker,生产者Invoker等  
 
+
+router路由  
+Router应用场景有：应用隔离,读写分离,灰度发布。  
+灰度发布就是不停止对外的服务,也就是让用户感觉不到你在发布。让一部分人先用新版本的服务   
+路由就是管理地址，IP等，如禁用部分IP等控制，哪个服务器可以调哪个地址等  
+Dubbo 目前提供了三种服务路由实现，分别为条件路由 ConditionRouter、脚本路由 ScriptRouter 和标签路由 TagRouter  
+
+Cluster集群接口   
+将 Directory 中的多个 Invoker 伪装成一个 Invoker，对上层透明，伪装过程包含了容错逻辑，调用失败后，重试另一个  
+应对出错情况采取的策略  
+集群 Cluster 用途是将多个服务提供者合并为一个 Cluster Invoker，并将这个 Invoker 暴露给服务消费者。   
+这样一来，服务消费者只需通过这个 Invoker 进行远程调用即可，至于具体调用哪个服务提供者，以及调用失败后如何处理等问题，现在都交给集群模块去处理。  
+集群实现，包含但不限于 Failover Cluster、Failfast Cluster 和 Failsafe Cluster 等
+
+directory服务目录  
+。服务目录中存储了一些和服务提供者有关的信息，通过服务目录，服务消费者可获取到服务提供者的信息，比如 ip、端口、服务协议等。通过这些信息，服务消费者就可通过 Netty 等客户端进行远程调用  
+directory接口主要有两个实现类,一个是StaticDirectory,一个是RegistryDirectory  
+RegistryDirectory 动态管理List<Invoker>，比如注册中心推送变更   
+Directory获取invoker是从methodInvokerMap中获取的，这些主要都是读操作，它的写操作在回调方法notify的时候操作的  
+RegistryDirectory实现了 NotifyListener 接口  ，RegistryDirectory 中有几个比较重要的逻辑，第一是 Invoker 的列举逻辑，第二是接收服务配置变更的逻辑，第三是 Invoker 列表的刷新逻辑   
+
+。服务目录中存储了一些和服务提供者有关的信息，通过服务目录，服务消费者可获取到服务提供者的信息，比如 ip、端口、服务协议等。通过这些信息，服务消费者就可通过 Netty 等客户端进行远程调用  
+实际上服务目录在获取注册中心的服务配置信息后，会为每条配置信息生成一个 Invoker 对象，并把这个 Invoker 对象存储起来，这个 Invoker 才是服务目录最终持有的对象  
+服务目录可以看成Invoker 集合，且这个集合中的元素会随注册中心的变化而进行动态调整。 
+
+LoadBalance(负载均衡)   
+Dubbo 提供了4种负载均衡实现，分别是基于权重随机算法的 RandomLoadBalance、基于最少活跃调用数算法的 LeastActiveLoadBalance、基于 hash 一致性的 ConsistentHashLoadBalance，以及基于加权轮询算法的 RoundRobinLoadBalance  
+AbstractLoadBalance的负载均衡的入口方法 select  
+另外还有 服务提供者权重计算逻辑，该过程主要用于保证当服务运行时长小于服务预热时间时，对服务进行降权，避免让服务在启动之初就处于高负载状态。服务预热是一个优化手段，与此类似的还有 JVM 预热。主要目的是让服务启动后“低功率”运行一段时间，使其效率慢慢提升至最佳状态。
+RandomLoadBalance 是加权随机算法   就是权重分批随机数区间，取随机数区间来分配
+LeastActiveLoadBalance  最小活跃数负载均衡  每个服务提供者对应一个活跃数 active。初始情况下，所有服务提供者活跃数均为0。每收到一个请求，活跃数加1，完成请求后则将活跃数减1。这样性能快的处理快，活跃数降的快，能分配更多的负载
+ConsistentHashLoadBalance   一致性 hash 算法提出之初是用于大规模缓存系统的负载均衡 为缓存节点生成一个 hash，并将这个 hash 投射到 [0, 232 - 1] 的圆环上  目的是通过引入虚拟节点，让 Invoker 在圆环上分散开来，避免数据倾斜问题
+
+
+dubbo中的服务降级分成两个  
+屏蔽(mock=force)  
+容错(mock=fail)  
+
+如 MockClusterInvoker 
+从no mock(正常情况),force:direct mock(屏蔽),fail-mock(容错)三种情况我们也可以看出,  
+普通情况是直接调用,容错的情况是调用失败后,返回一个设置的值.而屏蔽就很暴力了,直接连调用都不调用,就直接返回一个之前设置的值.
 
 ### 总结
 
